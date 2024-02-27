@@ -1,0 +1,63 @@
+<div class="column-layout group">
+  <h5 class="h5">
+    Produits de Stock
+  </h5>
+</div>
+<div class="column-layout group_1">
+  <div class="row-layout group_2">
+    <igx-input-group type="border" class="input">
+      <input type="text" igxInput />
+      <label igxLabel>Recherche</label>
+    </igx-input-group>
+    <button igxButton="raised" igxRipple [igxToggleAction]="ajouterStock" class="button">
+      Ajouter
+    </button>
+  </div>
+</div>
+<div class="column-layout group_3"></div>
+<igx-dialog [closeOnOutsideSelect]="true" [closeOnEscape]="true" #ajouterStock>
+  <igx-dialog-title>
+    <h5>
+      Ajouter un produit
+    </h5>
+  </igx-dialog-title>
+  <ng-container>
+    <p class="text">
+      Body 1
+    </p>
+  </ng-container>
+  <igx-dialog-actions>
+    <button igxButton="flat" igxRipple [igxToggleAction]="ajouterStock">Cancel</button>
+    <button igxButton="flat" igxRipple [igxToggleAction]="ajouterStock">OK</button>
+  </igx-dialog-actions>
+</igx-dialog>
+<igx-dialog [closeOnOutsideSelect]="true" [closeOnEscape]="true" #modifierStock>
+  <igx-dialog-title>
+    <h5>
+      Modifier un produit
+    </h5>
+  </igx-dialog-title>
+  <ng-container>
+    <p class="text">
+      Body 1
+    </p>
+  </ng-container>
+  <igx-dialog-actions>
+    <button igxButton="flat" igxRipple [igxToggleAction]="modifierStock">Cancel</button>
+    <button igxButton="flat" igxRipple [igxToggleAction]="modifierStock">OK</button>
+  </igx-dialog-actions>
+</igx-dialog>
+<igx-dialog [closeOnOutsideSelect]="true" [closeOnEscape]="true" #dialog>
+  <igx-dialog-title>
+    <h5>
+      Confirmation
+    </h5>
+  </igx-dialog-title>
+  <ng-container>
+    <p>Are you sure you want to do this?</p>
+  </ng-container>
+  <igx-dialog-actions>
+    <button igxButton="flat" igxRipple [igxToggleAction]="dialog">Cancel</button>
+    <button igxButton="flat" igxRipple [igxToggleAction]="dialog">OK</button>
+  </igx-dialog-actions>
+</igx-dialog>
