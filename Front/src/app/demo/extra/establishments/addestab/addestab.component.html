@@ -1,0 +1,79 @@
+<!-- <div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Points de vente">
+      <form [formGroup]="establishmentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="text">Nom du point de vente</label>
+          <input type="text" class="form-control" placeholder="Text" />
+          <br>
+          <label for="text">Image</label>
+          <div class="mb-3">
+            <input
+              type="file"
+              class="form-control"
+              aria-label="file example"
+              required
+            />
+            <div class="invalid-feedback">Example invalid form file feedback</div>
+          </div>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="exampleCheck1"
+          />
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="exampleCheck1"
+          />
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="exampleCheck1"
+          />
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+      </form>
+    </app-card>
+  </div>
+</div> -->
+
+
+
+<app-card cardTitle="Points de vente">
+
+    <div *ngIf="conflictErrorMessage" class="text-danger">{{ conflictErrorMessage }}</div>
+
+    <form [formGroup]="establishmentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nom du point de vente</label>
+          <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nom du point de vente"
+                 [ngClass]="{'is-invalid': establishmentForm.get('name').invalid && establishmentForm.get('name').touched}">
+          <div *ngIf="establishmentForm.get('name').invalid && establishmentForm.get('name').touched" class="text-danger">
+            Le nom est requis.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="image">Image</label>
+          <div class="mb-3">
+            <input
+              type="file"
+              class="form-control"
+              aria-label="file example"
+              id="image"
+              (change)="onFileSelected($event)"
+              required
+            />
+            <div class="invalid-feedback">Example invalid form file feedback</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmer</button>
+    </form>
+</app-card>
+
+
+  
+  

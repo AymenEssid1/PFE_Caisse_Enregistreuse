@@ -1,31 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-// Standard CSS normalize, comment out if not required or using a different module
-@use "minireset.css/minireset";
-@use "igniteui-angular/theming" as *;
+@import "scss/variables";
 
-@include core();
-@include typography();
-@include light-theme($light-material-palette);
+/* fonts-icon */
+@import "scss/fonts/fontawesome/scss/fontawesome";
+@import "scss/fonts/feather/iconfont";
 
-body {
-  background: hsla(var(--ig-surface-500));
-  color: var(--ig-surface-500-contrast);
-}
+@import "scss/general";
+@import "scss/generic";
+@import "scss/mixins/function";
 
-html, body {
-  height: 100%;
-}
+/* important element */
+@import "scss/menu/menu-lite";
 
-.ig-typography {
-  h1, h2, h3, h4, h5, h6, p, .ig-typography__body-1 {
-    margin: 0;
-  }
-}
+/* basic elements */
+@import "scss/theme-elements/theme-elements";
 
-.outer-wrapper > *:not(router-outlet) {
-  width: 100%;
-}
+/* third party modules style*/
+@import "scss/plugins/plugins";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "scss/custom";
+@import 'material-icons/iconfont/material-icons.scss';

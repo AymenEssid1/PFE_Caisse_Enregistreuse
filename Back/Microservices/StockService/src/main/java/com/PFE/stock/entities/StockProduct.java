@@ -1,10 +1,13 @@
 package com.PFE.stock.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -30,6 +33,9 @@ public class StockProduct {
     private Establishment establishment;
 
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "stockproduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StockEquivalent> stockEquivalents;
 
 
 }

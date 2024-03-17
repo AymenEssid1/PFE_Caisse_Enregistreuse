@@ -3,16 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pfe": {
+    "datta-able-free-angular-admin-template": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
-          "standalone": false
-        },
-        "@schematics/angular:application": {
-          "strict": true,
-          "standalone": false
+          "style": "scss"
         }
       },
       "root": "",
@@ -22,39 +17,32 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pfe",
+            "allowedCommonJsDependencies": ["apexcharts"],
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/fake-data"],
             "styles": [
-              "@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/hammerjs/hammer.min.js"
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["node_modules"]
-            }
+            "scripts": ["node_modules/apexcharts/dist/apexcharts.min.js"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "2mb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -80,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pfe:build:production"
+              "buildTarget": "datta-able-free-angular-admin-template:build:production"
             },
             "development": {
-              "buildTarget": "pfe:build:development"
+              "buildTarget": "datta-able-free-angular-admin-template:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "pfe:build"
+            "buildTarget": "datta-able-free-angular-admin-template:build"
           }
         },
         "test": {
@@ -102,35 +90,15 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "styles": [
-              "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "./node_modules/hammerjs/hammer.min.js"
-            ],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["node_modules"]
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
+            "scripts": []
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "analytics": "0eaad924-6e2a-434b-aad5-51d9f46776fc"
   }
 }

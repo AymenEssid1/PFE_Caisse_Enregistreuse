@@ -1,37 +1,98 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-import { PageNotFoundComponent } from './error-routing/not-found/not-found.component';
-import { UncaughtErrorComponent } from './error-routing/error/uncaught-error.component';
-import { ErrorRoutingModule } from './error-routing/error-routing.module';
-import { StockProductsComponent } from './stock-products/stock-products.component';
-import { DiscountsComponent } from './discounts/discounts.component';
-import { SoldProductsComponent } from './sold-products/sold-products.component';
-import { CombosComponent } from './combos/combos.component';
-import { EstablishmentComponent } from './establishment/establishment.component';
-import { HomeComponent } from './home/home.component';
-
+import { Routes, RouterModule } from '@angular/router';
+import { AdminComponent } from './theme/layout/admin/admin.component';
+import { GuestComponent } from './theme/layout/guest/guest.component';
+import { AuthGuard } from './guard/auth.guard';
+import { EstablishmentsComponent } from './demo/extra/establishments/establishments.component';
+import { CashiersComponent } from './demo/extra/cashiers/cashiers.component';
+import AuthSigninComponent from './demo/pages/authentication/auth-signin/auth-signin.component';
+import AuthSignupComponent from './demo/pages/authentication/auth-signup/auth-signup.component';
+import { SignInGuard } from './guard/sign-in.guard';
+import { AddestabComponent } from './demo/extra/establishments/addestab/addestab.component';
 export const routes: Routes = [
+
   {
     path: '',
-    component: HomeComponent,
-    children: [
-      { path: 'stock-products', component: StockProductsComponent, data: { text: 'StockProducts' } },
-      { path: 'discounts', component: DiscountsComponent, data: { text: 'Discounts' } },
-      { path: 'sold-products', component: SoldProductsComponent, data: { text: 'SoldProducts' } },
-      { path: 'combos', component: CombosComponent, data: { text: 'Combos' } },
-      { path: 'establishment', component: EstablishmentComponent, data: { text: 'Establishment' } },
-      { path: '', redirectTo: 'establishment', pathMatch: 'full' } ,// Default route within HomeComponent
-      { path: '**', component: PageNotFoundComponent } // must always be last
-    ]
+    redirectTo: 'sign-in',
+   
   },
-  { path: 'error', component: UncaughtErrorComponent },
-  { path: '**', component: PageNotFoundComponent } // must always be last
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./demo/dashboard/dashboard.component'),
+      },
+      {
+        path: 'basic',
+        loadChildren: () =>
+          import('./demo/ui-elements/ui-basic/ui-basic.module').then(
+            (m) => m.UiBasicModule,
+          ),
+      },
+      {
+        path: 'forms',
+        loadChildren: () =>
+          import('./demo/pages/form-elements/form-elements.module').then(
+            (m) => m.FormElementsModule,
+          ),
+      },
+      {
+        path: 'tables',
+        loadChildren: () =>
+          import('./demo/pages/tables/tables.module').then(
+            (m) => m.TablesModule,
+          ),
+      },
+      {
+        path: 'apexchart',
+        loadComponent: () =>
+          import('./demo/chart/apex-chart/apex-chart.component'),
+      },
+      {
+        path: 'sample-page',
+        loadComponent: () =>
+          import('./demo/extra/sample-page/sample-page.component'),
+      },
+      {
+        path: 'establishments',component: EstablishmentsComponent
+        
+      },
+      {
+        path: 'addestablishments',component: AddestabComponent
+        
+      },
+      
+      {
+        path: 'caissiers',component: CashiersComponent
+        
+      },
+    ],
+  },
+  {
+    path: 'sign-in',
+    component: AuthSigninComponent,
+    canActivate: [SignInGuard] // Prevent accessing sign-in page if already authenticated
+
+  },
+  {
+    path: 'sign-up',
+    component: AuthSignupComponent,
+
+   
+  },
+  
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true }), ErrorRoutingModule],
-  exports: [RouterModule, ErrorRoutingModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

@@ -15,7 +15,7 @@ public class FileSystemRepository {
 
 
     public String save(MultipartFile content) throws Exception {
-        Path newFile = Paths.get(System.getProperty("user.dir")+"/assets/PFE-" + new Date().getTime() + "-" + content.getOriginalFilename()); // to change
+        Path newFile = Paths.get(System.getProperty("user.dir")+"/StockService/assets/PFE-" + new Date().getTime() + "-" + content.getOriginalFilename()); // to change
         Files.createDirectories(newFile.getParent());
         Files.write(newFile, content.getBytes());
         return newFile.toAbsolutePath()

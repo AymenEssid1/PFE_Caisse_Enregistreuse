@@ -49,6 +49,12 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     }
 
     @Override
+    public Establishment getById(Integer establishmentId) {
+
+        return establishmentRepository.findById(establishmentId).orElseThrow(() -> new EntityNotFoundException("establishment not found"));
+    }
+
+    @Override
     public List<Establishment> getAllEstablishments() {
         return establishmentRepository.findAll();
     }

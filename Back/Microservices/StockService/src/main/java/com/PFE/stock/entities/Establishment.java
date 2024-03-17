@@ -22,9 +22,12 @@ public class Establishment {
     @GeneratedValue
     private Integer id;
     private String name;
+
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Image image;
+
 
 
     @JsonIgnore

@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Points de vente">
+        <button type="button" class="btn btn-icon btn-primary" style="width:fit-content" (click)=" openAddEstablishment()">Ajouter </button>
+        <div class="table-styling">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nom</th>
+                
+                <th>parameters</th>
+                <th>actions</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estab of establishments">
+                <td><img [src]="'http://localhost:8080/establishments/image/' + estab.id" alt="no image" width="40"
+                    class="rounded" /></td>
+                <td>{{ estab.name }}</td>
+                
+                
+                <td>{{ estab.id}}</td>
+                <td>                          <button type="button" class="btn btn-icon btn-danger" style="width: fit-content;" (click)="onDelete(estab.id)">supprimer</button>
+                    <button type="button" class="btn btn-icon btn-primary" style="width: fit-content;" (click)="onEdit(estab.id)">éditer</button>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-card>
+    </div>
+  </div>

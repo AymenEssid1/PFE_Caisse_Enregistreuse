@@ -29,7 +29,7 @@ public class Combo {
     private LocalDateTime createdAt;
     private boolean status;
 
-    @OneToMany(mappedBy = "combo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "combo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SoldProduct> soldProducts;
 
     /*@JsonIgnore

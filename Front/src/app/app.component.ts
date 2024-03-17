@@ -1,15 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-//import { IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxToggleModule, IgxDialogModule, IgxNavbarModule, IgxIconModule, IgxNavigationDrawerModule, IgxListModule } from 'igniteui-angular';
-
+import { SharedModule } from './theme/shared/shared.module';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [CommonModule, RouterOutlet]//,IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxToggleModule, IgxDialogModule, IgxNavbarModule, IgxIconModule, IgxNavigationDrawerModule, IgxListModule],
-
+  
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  title = 'datta-able';
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0);
+    });
+  }
+}

@@ -25,7 +25,7 @@ public class StockEquivalent {
     @JoinColumn(name = "sold_product_id")
     private SoldProduct soldProduct;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
     private StockProduct stockproduct;
 
 }

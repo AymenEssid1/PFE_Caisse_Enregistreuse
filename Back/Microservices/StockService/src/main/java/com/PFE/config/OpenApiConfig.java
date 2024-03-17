@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
-
+/*
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
@@ -28,4 +28,4 @@ public class OpenApiConfig {
 
 
 
-}
+}*/
