@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Produit de stock" >
+        <div class="custom-card">
+
+           
+
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;">
+                <button class="btn btn-outline-success" ngbDropdownToggle type="button">
+                    Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
+                </button>
+                <div class="dropdown-menu-container" ngbDropdownMenu>
+                    <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:" (click)="fetchStockProducts(establishment.id)">
+                        {{ establishment.name }}
+                      </a>
+                </div>
+            </div>
+
+              <button type="button" class="btn btn-icon btn-primary" style="width:fit-content" (click)=" openAddStock(selectedEstablishment.id)">Ajouter </button>
+
+
+
+
+
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+                    <th>reference</th>
+                    <th>intitulé</th>
+                    <th> quantité (kg ou Pcs)</th>
+                    <th>actions</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let stock of stockProducts">
+                    <td>{{stock.refstock}}</td>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.quantity}}</td>
+                    <td>                          <button type="button" class="btn btn-icon btn-danger" style="width: fit-content;" (click)="this.onDelete(stock.id,selectedEstablishment.id)">supprimer</button>
+                        <button type="button" class="btn btn-icon btn-primary" style="width: fit-content;" (click)="onEdit(selectedEstablishment.id,stock.id)">éditer</button>
+    
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+        </div>
+       
+      </app-card>
+    </div>
+  </div>

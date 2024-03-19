@@ -1,6 +1,7 @@
 package com.PFE.stock.controllers.done;
 
 
+import com.PFE.stock.entities.Establishment;
 import com.PFE.stock.entities.StockProduct;
 import com.PFE.stock.services.interfaces.done.StockProductService;
 import jakarta.persistence.EntityExistsException;
@@ -19,6 +20,13 @@ public class StockProductController {
 
     public StockProductController(StockProductService stockProductService) {
         this.stockProductService = stockProductService;
+    }
+
+
+
+    @GetMapping("/get-all-stock-products/{establishmentId}")
+    public ResponseEntity<List<StockProduct>> getAllStockProducts(@PathVariable("establishmentId") Integer establishmentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(stockProductService.getAllStockProducts(establishmentId));
     }
 
     @PostMapping("/add-stock-product/{establishmentId}")
@@ -60,8 +68,15 @@ public class StockProductController {
         }
     }
 
-    @GetMapping("/get-all-stock-products/{establishmentId}")
-    public ResponseEntity<List<StockProduct>> getAllStockProducts(@PathVariable("establishmentId") Integer establishmentId) {
-        return ResponseEntity.status(HttpStatus.OK).body(stockProductService.getAllStockProducts(establishmentId));
+    @GetMapping("/getstockpById/{id}")
+    public ResponseEntity<StockProduct> getbyId(@PathVariable("id") Integer id) {
+        try {
+            StockProduct existingStockp =stockProductService.getById(id);
+            return  ResponseEntity.ok(existingStockp);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+
 }

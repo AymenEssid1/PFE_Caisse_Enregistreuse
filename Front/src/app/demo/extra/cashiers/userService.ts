@@ -19,19 +19,27 @@ export class UserService {
   constructor(private http: HttpClient) { }
   
   
-  keycloakInstance = localStorage.getItem('token');
+  token = localStorage.getItem('token');
 
 
   httpOptions = {
     headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${this.keycloakInstance}`
+    'Authorization': `Bearer ${this.token}`
     })
     }
     
 
       /*--------------Get All Users From Keycloak--------------*/
 GetAllUsers():Observable<any[]>{
+  this.token = localStorage.getItem('token');
+  
+  this.httpOptions = {
+    headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.token}`
+    })
+    }
   return this.http.get<any[]>(this.apiUrl+'/users',this.httpOptions);
 }
 

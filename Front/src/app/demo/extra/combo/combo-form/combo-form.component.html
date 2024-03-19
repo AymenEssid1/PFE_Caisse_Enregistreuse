@@ -1,0 +1,62 @@
+<p>combo-form works!</p>
+
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Combo" >
+        <div class="custom-card">
+
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Ref</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let soldProduct of soldProducts">
+                    <td>{{ soldProduct.ref }}</td>
+                    <td>{{ soldProduct.name }}</td>
+                    <td>{{ soldProduct.price }}</td>
+                    <td>{{ soldProduct.category.categoryName }}</td>
+                    <td>
+                        <input type="checkbox" [checked]="selectedSoldProductIds.includes(soldProduct.id)" (change)="toggleSoldProductSelection(soldProduct.id)">
+                      </td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+
+
+
+        </div>
+
+
+        <form [formGroup]="comboForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Réference du produit</label>
+              <input type="text" class="form-control" formControlName="ref" id="refstock" placeholder="Réference du combo">
+              
+            </div>
+            <div class="form-group">
+                <label for="name">Nom du Combo</label>
+                <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nom du Produit">
+                
+              </div>
+              <div class="form-group">
+                <label for="name">Prix</label>
+                <input type="number" step="any" class="form-control" formControlName="price" id="price" placeholder="Prix">
+                
+              </div>
+              
+            <button type="submit" class="btn btn-primary">Confirmer</button>
+        </form>
+      </app-card>
+
+
+
+
+      
+</div>     

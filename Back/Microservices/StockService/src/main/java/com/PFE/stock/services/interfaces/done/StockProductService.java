@@ -9,5 +9,6 @@ public interface StockProductService {
     StockProduct updateStockProduct(Integer establishmentId, Integer stockProductId, StockProduct updatedStockProduct);
     void deleteStockProduct(Integer stockProductId);
     List<StockProduct> getAllStockProducts(Integer establishmentId);
+    StockProduct getById(Integer stockpid);
 }
 

@@ -77,4 +77,9 @@ public class StockProductServiceImpl implements StockProductService {
 
         return stockProductRepository.findByEstablishment(establishment);
     }
+
+    @Override
+    public StockProduct getById(Integer stockpid) {
+        return stockProductRepository.findById(stockpid).orElseThrow(()->new EntityNotFoundException("produit de stock introuvable"));
+    }
 }

@@ -9,6 +9,13 @@ import AuthSigninComponent from './demo/pages/authentication/auth-signin/auth-si
 import AuthSignupComponent from './demo/pages/authentication/auth-signup/auth-signup.component';
 import { SignInGuard } from './guard/sign-in.guard';
 import { AddestabComponent } from './demo/extra/establishments/addestab/addestab.component';
+import { StockComponent } from './demo/extra/Stock/stock/stock.component';
+import { StockFormComponent } from './demo/extra/Stock/stock-form/stock-form.component';
+import { SoldProductsComponent } from './demo/extra/SoldProducts/sold-products/sold-products.component';
+import { SoldproductFormComponent } from './demo/extra/SoldProducts/soldproduct-form/soldproduct-form.component';
+import { ComboComponent } from './demo/extra/combo/combo.component';
+import { ComboFormComponent } from './demo/extra/combo/combo-form/combo-form.component';
+import { ForgotPasswordComponent } from './demo/pages/authentication/forgot-password/forgot-password.component';
 export const routes: Routes = [
 
   {
@@ -17,9 +24,12 @@ export const routes: Routes = [
    
   },
   {
+    path: 'reset-pwd',component: ForgotPasswordComponent
+    
+  },
+  {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -29,6 +39,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./demo/dashboard/dashboard.component'),
+        canActivate: [AuthGuard]
       },
       {
         path: 'basic',
@@ -62,7 +73,9 @@ export const routes: Routes = [
           import('./demo/extra/sample-page/sample-page.component'),
       },
       {
-        path: 'establishments',component: EstablishmentsComponent
+        path: 'establishments',component: EstablishmentsComponent,
+        canActivate: [AuthGuard]
+
         
       },
       {
@@ -74,6 +87,35 @@ export const routes: Routes = [
         path: 'caissiers',component: CashiersComponent
         
       },
+      
+      {
+        path: 'stock',component: StockComponent
+        
+      },
+      {
+        path: 'stockF',component: StockFormComponent
+        
+      },
+
+      {
+        path: 'sold',component: SoldProductsComponent
+        
+      },
+      {
+        path: 'soldF',component: SoldproductFormComponent
+        
+      },
+      {
+        path: 'combo',component: ComboComponent,
+        canActivate: [AuthGuard]
+        
+      },
+      {
+        path: 'comboF',component: ComboFormComponent,
+        canActivate: [AuthGuard]
+        
+      },
+      
     ],
   },
   {

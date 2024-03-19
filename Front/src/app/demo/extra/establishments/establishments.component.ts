@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { Establishment } from './Service/establishment.model';
 import { EstablishmentService } from './Service/EstablishmentService';
-import { MatDialog } from '@angular/material/dialog';
-import { AddestabComponent } from './addestab/addestab.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,10 +14,9 @@ import { Router } from '@angular/router';
 export class EstablishmentsComponent {
 
   establishments: Establishment[] = [];
-  displayedColumns: string[] = ['name', 'action'];
 
 
-  constructor(private establishmentService: EstablishmentService ,  private dialog: MatDialog,private router:Router) {}
+  constructor(private establishmentService: EstablishmentService,private router:Router) {}
 
   ngOnInit(): void {
     this.fetchEstablishments();
@@ -44,6 +41,8 @@ export class EstablishmentsComponent {
       }
     );
   }
+
+  
 
   onDelete(id: number): void {
     this.establishmentService.deleteEstablishment(id)

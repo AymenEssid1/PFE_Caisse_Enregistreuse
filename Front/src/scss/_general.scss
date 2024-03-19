@@ -265,7 +265,7 @@ p.text-muted {
 
   &.show {
     &:before {
-      content: "\63";
+      content: "";
       font-family: "pct";
       position: absolute;
       left: 15px;

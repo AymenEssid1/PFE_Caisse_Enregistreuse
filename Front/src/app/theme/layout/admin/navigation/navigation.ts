@@ -39,27 +39,28 @@ const NavigationItems = [
       {
         id: 'establishments',
         title: 'Points de vente',
-        type: 'collapse',
+        type: 'item',
         icon: 'feather icon-home',
         classes: 'nav-item',
-        
-            children: [
-              {
-                id: 'establishments',
-        title: 'Points de vente',
-        type: 'item',
-        url: '/admin/establishments',
-              },
-              {
-                id: 'addestab',
-                title: 'Formulaire Point de vente',
-                type: 'item',
-                url: '/admin/addestablishments', // Add /admin before every URL
-              },
-             
+        url: '/admin/establishments'
 
-            ],
-        
+       /* children: [
+          {
+            id: 'establishments',
+            title: 'Points de vente',
+            type: 'item',
+            url: '/admin/establishments',
+          },
+          {
+            id: 'addestab',
+            title: 'Formulaire Point de vente',
+            type: 'item',
+            url: '/admin/addestablishments', // Add /admin before every URL
+          },
+
+
+        ],*/
+
       },
       {
         id: 'caissiers',
@@ -68,21 +69,37 @@ const NavigationItems = [
         url: '/admin/caissiers', // Add /admin before every URL
         icon: 'icon-users',
         classes: 'nav-item',
-      },{
+      }, {
         id: 'stock',
         title: 'Stock',
         type: 'item',
-        url: '/admin/stock', // Add /admin before every URL
-        icon: 'icon-package',
+        url: '/admin/stock',
+        icon: ' feather icon-package',
         classes: 'nav-item',
-      },{
+
+
+      },
+
+
+
+
+      {
         id: 'Produits Vendus',
         title: 'Produits Vendus',
         type: 'item',
-        url: '/admin/soldproduct', // Add /admin before every URL
+        url: '/admin/sold', // Add /admin before every URL
         icon: 'icon-shopping-cart',
         classes: 'nav-item',
-      },{
+      }, 
+      {
+        id: 'combos',
+        title: 'Combos',
+        type: 'item',
+        url: '/admin/combo', // Add /admin before every URL
+        icon: 'feather icon-box',
+        classes: 'nav-item',
+      },
+      {
         id: 'promotions',
         title: 'Promotions',
         type: 'item',
@@ -90,8 +107,8 @@ const NavigationItems = [
         icon: 'icon-tag',
         classes: 'nav-item',
       },
-      
-      
+
+
     ],
   },
   {

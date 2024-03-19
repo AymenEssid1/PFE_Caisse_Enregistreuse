@@ -1,0 +1,10 @@
+.custom-card {
+    position: relative; /* Ensure positioning context for absolute positioning of dropdown */
+    height: 1000px; /* Set card height to cover the entire column */
+  }
+
+  .dropdown-menu-container {
+    position: absolute;
+    width: 100%; /* Make dropdown menu container full width */
+    z-index: 1000; /* Adjust z-index as needed */
+  }

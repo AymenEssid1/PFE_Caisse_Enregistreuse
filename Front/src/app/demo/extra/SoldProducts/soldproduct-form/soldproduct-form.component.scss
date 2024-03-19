@@ -1,0 +1,35 @@
+.tables-container {
+    display: flex;
+    width: 100%;
+    height: 300px; /* Set the height of the container */
+  }
+  
+  .table-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-right: 8px; /* Add space between tables */
+  }
+  
+  .custom-table {
+    width: 100%;
+  }
+  
+  .custom-table thead {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff; /* Optional: Add background color to distinguish the table header */
+    z-index: 1; /* Ensure the header is above other content */
+  }
+  
+  .add-category-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 8px;
+    position: sticky;
+    bottom: 0;
+    background-color: #ffffff; /* Optional: Add background color to distinguish the input row */
+  }
+  

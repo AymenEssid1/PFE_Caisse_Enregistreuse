@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -29,8 +30,13 @@ public class Combo {
     private LocalDateTime createdAt;
     private boolean status;
 
-    @OneToMany(mappedBy = "combo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<SoldProduct> soldProducts;
+    @ManyToMany
+    @JoinTable(
+            name = "combo_sold_products",
+            joinColumns = @JoinColumn(name = "combo_id"),
+            inverseJoinColumns = @JoinColumn(name = "sold_product_id")
+    )
+    private Set<SoldProduct> soldProducts;
 
     /*@JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

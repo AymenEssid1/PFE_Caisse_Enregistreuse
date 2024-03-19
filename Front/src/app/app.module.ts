@@ -23,14 +23,10 @@ import { NavItemComponent } from './theme/layout/admin/navigation/nav-content/na
 import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-search/nav-search.component';
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { ToggleFullScreenDirective } from './theme/shared/components/full-screen/toggle-full-screen';
-import { KeycloakService } from 'keycloak-angular';
-import { initializeKeycloak } from './init/keycloak-init.factory';
-import { APP_INITIALIZER } from '@angular/core';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { MatIconModule } from '@angular/material/icon';
 import { CashiersComponent } from './demo/extra/cashiers/cashiers.component';
 import { HttpClientModule } from '@angular/common/http';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { AddestabComponent } from './demo/extra/establishments/addestab/addestab.component';
 
 
@@ -67,13 +63,7 @@ import { AddestabComponent } from './demo/extra/establishments/addestab/addestab
 
   ],
   providers: [
-    
-   /* {
-    provide: APP_INITIALIZER,
-    useFactory: initializeKeycloak,
-    multi: true,
-    deps: [KeycloakService],
-  },*/
+  
   NavigationItem],
   bootstrap: [AppComponent],
 })

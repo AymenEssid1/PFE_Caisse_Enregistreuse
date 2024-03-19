@@ -13,7 +13,7 @@ export class SignInGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/admin/dashboard']); // Redirect to dashboard if already authenticated
+      this.router.navigate(['/admin/sample-page']); // Redirect to dashboard if already authenticated
       return false;
     } else {
       return true;

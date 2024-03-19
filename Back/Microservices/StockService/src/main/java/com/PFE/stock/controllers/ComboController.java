@@ -2,6 +2,8 @@ package com.PFE.stock.controllers;
 
 
 import com.PFE.stock.entities.Combo;
+import com.PFE.stock.services.Exceptions.ComboNotFoundException;
+import com.PFE.stock.services.Exceptions.DuplicateComboException;
 import com.PFE.stock.services.interfaces.ComboService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,54 +20,57 @@ public class ComboController {
     @Autowired
     private ComboService comboService;
 
-    @PostMapping("/add-combo/{establishmentId}")
-    public ResponseEntity<Combo> addCombo(
-            @PathVariable("establishmentId") Integer establishmentId,
-            @RequestBody Combo combo
-    ) {
+
+    @PostMapping("/add")
+    public ResponseEntity<?> createCombo(@RequestBody Combo combo) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(comboService.addCombo(establishmentId, combo));
+            Combo createdCombo = comboService.createCombo(combo);
+            return new ResponseEntity<>(createdCombo, HttpStatus.CREATED);
+        } catch (DuplicateComboException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCombo(@PathVariable("id") Integer id, @RequestBody Combo combo) {
+        try {
+            Combo updatedCombo = comboService.updateCombo(id, combo);
+            return new ResponseEntity<>(updatedCombo, HttpStatus.OK);
+        } catch (ComboNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (DuplicateComboException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
- /*   @PutMapping("/update-combo/{establishmentId}/{comboId}")
-    public ResponseEntity<Combo> updateCombo(
-            @PathVariable("establishmentId") Integer establishmentId,
-            @PathVariable("comboId") Integer comboId,
-            @RequestBody Combo updatedCombo
-    ) {
+    @GetMapping("/getBy/{id}")
+    public ResponseEntity<?> getComboById(@PathVariable("id") Integer id) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(comboService.updateCombo(establishmentId, comboId, updatedCombo));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }*/
-
-    @DeleteMapping("/delete-combo/{comboId}")
-    public ResponseEntity<Void> deleteCombo(
-            @PathVariable("comboId") Integer comboId
-    ) {
-        comboService.deleteCombo(comboId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/get-all-combos/{establishmentId}")
-    public ResponseEntity<List<Combo>> getAllCombos(
-            @PathVariable("establishmentId") Integer establishmentId
-    ) {
-        return ResponseEntity.status(HttpStatus.OK).body(comboService.getAllCombos(establishmentId));
-    }
-
-    @GetMapping("/get-combo/{comboId}")
-    public ResponseEntity<Combo> getComboById(
-            @PathVariable("comboId") Integer comboId
-    ) {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(comboService.getComboById(comboId));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            Combo combo = comboService.getComboById(id);
+            return new ResponseEntity<>(combo, HttpStatus.OK);
+        } catch (ComboNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/GetALL/{establishmentId}")
+    public ResponseEntity<?> getAllCombosByEstablishmentId(@PathVariable("establishmentId") Integer establishmentId) {
+        List<Combo> combos = comboService.getAllCombosByEstablishmentId(establishmentId);
+        return new ResponseEntity<>(combos, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/combos/{id}")
+    public ResponseEntity<Void> deleteCombo(@PathVariable("id") Integer id) {
+        try {
+            comboService.deleteCombo(id);
+            return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (ComboNotFoundException e) {
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 }

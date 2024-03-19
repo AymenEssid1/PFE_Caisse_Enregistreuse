@@ -97,7 +97,13 @@
             class="img-radius"
             alt="User-Profile-Image"
           />
-          <span> userInfo.firstName   userInfo.lastName userInfo.realmRoles </span>
+          <span>
+            {{ firstName }} {{ lastName }}
+            
+            <ul>
+              <li *ngFor="let role of realmRoles">{{ role }}</li>
+            </ul>
+           </span>
           <a href="javascript:" class="dud-logout" title="Logout" (click)="logout()" >
             <i class="feather icon-log-out"></i>
           </a>

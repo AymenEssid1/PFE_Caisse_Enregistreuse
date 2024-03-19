@@ -99,7 +99,7 @@ import { finalize } from 'rxjs/operators';
 
 isAuthenticated(): boolean {
   return !!localStorage.getItem('token');
-
+//FIXX
 }
 
 signupUrl = "http://localhost:8888/admin/realms/PFE/users/";

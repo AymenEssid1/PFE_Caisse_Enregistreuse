@@ -11,7 +11,6 @@ import { SharedModule } from './theme/shared/shared.module';
   
 })
 export class AppComponent implements OnInit {
-  title = 'datta-able';
 
   constructor(private router: Router) {}
 

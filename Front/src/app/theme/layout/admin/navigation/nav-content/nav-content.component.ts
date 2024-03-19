@@ -27,9 +27,29 @@ export class NavContentComponent implements OnInit {
     this.windowWidth = window.innerWidth;
     this.navigation = this.nav.get();
   }
+//ROLE CONTROL
+  
+  removeItembyrole (): void {
 
+    const roles = JSON.parse(localStorage.getItem('roles'));
+
+    // Check if roles include ADMIN
+    const isAdmin = roles.includes('ADMIN');
+    
+    // If not admin, filter out the SuperAdmin item
+    if (!isAdmin) {
+      this.navigation = this.navigation.filter(item => item.id !== 'SuperAdmin');
+      
+    } else {
+      console.log("ok");
+     
+    }
+   
+  }
   // life cycle event
   ngOnInit() {
+    this.removeItembyrole();
+    console.log(this.navigation);
     if (this.windowWidth < 992) {
       setTimeout(() => {
         document

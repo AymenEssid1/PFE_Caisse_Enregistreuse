@@ -43,10 +43,6 @@ public class SoldProduct {
     @JoinColumn(name= "category_id")
     private Category category;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "combo_id")
-    private Combo combo;
 
     @OneToMany(mappedBy = "soldProduct", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StockEquivalent> stockEquivalents;

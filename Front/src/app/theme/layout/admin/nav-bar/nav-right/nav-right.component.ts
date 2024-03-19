@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/demo/pages/authentication/auth-signin/logi
 })
 export class NavRightComponent implements OnInit{
 
-  constructor(private keycloakService: KeycloakService,private loginService: LoginService) {
+  constructor(private loginService: LoginService) {
 
 
   }
@@ -21,22 +21,49 @@ export class NavRightComponent implements OnInit{
   
 
   ngOnInit(): void {
-    this.userInfo = this.getUserInfo();
+   this.getUserInfo2();
+  }
+
+
+  firstName: string;
+  lastName: string;
+  realmRoles: string[];
+
+  getUserInfo2(): void {
+    const userInfo = this.getUserInfo();
+    if (userInfo) {
+      this.firstName = userInfo.firstName;
+      this.lastName = userInfo.lastName;
+      this.realmRoles = userInfo.realmRoles.filter(role => 
+        role !== 'default-roles-pfe' && 
+        role !== 'uma_authorization' && 
+        role !== 'offline_access'
+      );
+    } else {
+      // Handle case when user info is not available
+    }
   }
 
   getUserInfo(): { firstName: string, lastName: string, realmRoles: string[] } {
-    const token = this.keycloakService.getKeycloakInstance().tokenParsed;
-    const firstName = token?.['given_name'] || '';
-    const lastName = token?.['family_name']|| '';
-    const allRoles = token?.realm_access?.roles || [];
-    const excludedRoles = ['offline_access', 'default-roles-pfe', 'uma_authorization'];
-    const realmRoles = allRoles.filter(role => !excludedRoles.includes(role));
-    return { firstName, lastName, realmRoles };
+    const token = localStorage.getItem('token');
+    const roles = JSON.parse(localStorage.getItem('roles'));
+
+    if (token) {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+
+      const firstName = tokenPayload.given_name || '';
+      const lastName = tokenPayload.family_name || '';
+      const realmRoles = roles || [];
+
+      return { firstName, lastName, realmRoles };
+    } else {
+      // Handle case when token is not present
+      return null;
+    }
   }
   
 
   logout() {
-    console.log("hellllllllllllllllllllllllllll");
     this.loginService.logout();
   }
 

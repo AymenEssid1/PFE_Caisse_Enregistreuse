@@ -29,6 +29,8 @@ public class SoldProductServiceImpl implements SoldProductService {
         this.establishmentRepository = establishmentRepository;
         this.categoryRepository = categoryRepository;
     }
+    @Autowired
+    private ComboRepository comboRepository;
 
     @Override
     public SoldProduct addSoldProduct(Integer establishmentId, SoldProduct soldProduct) {
@@ -51,6 +53,7 @@ public class SoldProductServiceImpl implements SoldProductService {
         // Step 4: Set category and createdAt for the sold product
         soldProduct.setCategory(category);
         soldProduct.setCreatedAt(LocalDateTime.now());
+        soldProduct.setStatus(true);
 
         // Step 5: Check if stockEquivalents is not null before iterating
         if (soldProduct.getStockEquivalents() != null) {
@@ -139,8 +142,26 @@ public class SoldProductServiceImpl implements SoldProductService {
 
     @Override
     public void deleteSoldProduct(Integer soldProductId) {
-        soldProductRepository.deleteById(soldProductId);
+        SoldProduct soldProduct = soldProductRepository.findById(soldProductId).orElse(null);
+        if (soldProduct != null) {
+            // Fetch all combos that contain the soldProduct
+            List<Combo> combosToDelete = comboRepository.findBySoldProduct(soldProduct);
+
+            // Remove all sold products from combos
+            for (Combo combo : combosToDelete) {
+                combo.getSoldProducts().clear();
+                comboRepository.save(combo);
+            }
+
+            // Delete the combos
+            comboRepository.deleteAll(combosToDelete);
+
+            // Delete the soldProduct
+            soldProductRepository.delete(soldProduct);
+        }
     }
+
+
 
     @Override
     public List<SoldProduct> getAllSoldProducts(Integer establishmentId) {
