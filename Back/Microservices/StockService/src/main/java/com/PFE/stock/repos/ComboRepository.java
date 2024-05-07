@@ -16,4 +16,13 @@ public interface ComboRepository extends JpaRepository<Combo, Integer> {
     Combo findByName(String name);
     @Query("SELECT c FROM Combo c JOIN c.soldProducts s WHERE s = :soldProduct")
     List<Combo> findBySoldProduct(@Param("soldProduct") SoldProduct soldProduct);
+
+
+
+    @Query("SELECT c FROM Combo c " +
+            "JOIN c.soldProducts sp " +
+            "JOIN sp.category cat " +
+            "JOIN cat.establishment est " +
+            "WHERE c.ref = :ref AND est.id = :establishmentId")
+    Optional<Combo> findByRefAndEstablishmentId(@Param("ref") String ref, @Param("establishmentId") Integer establishmentId);
 }

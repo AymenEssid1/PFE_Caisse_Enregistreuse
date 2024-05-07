@@ -31,8 +31,11 @@ public class ComboServiceImpl implements ComboService {
 
     @Override
     public Combo createCombo(Combo combo) throws DuplicateComboException {
-        if (comboRepository.findByRef(combo.getRef()) != null || comboRepository.findByName(combo.getName()) != null) {
-            throw new DuplicateComboException("Combo with same reference or name already exists.");
+        if (comboRepository.findByRef(combo.getRef()) != null ) {
+            throw new DuplicateComboException("Un Combo avec la même reference existe");
+        }
+        if ( comboRepository.findByName(combo.getName()) != null) {
+            throw new DuplicateComboException("Un Combo avec le même nom existe.");
         }
         Set<SoldProduct> soldProducts = fetchSoldProducts(combo.getSoldProducts());
         combo.setSoldProducts(soldProducts);
@@ -49,10 +52,10 @@ public class ComboServiceImpl implements ComboService {
         }
         Combo existingCombo = existingComboOptional.get();
         if (!existingCombo.getName().equals(combo.getName()) && comboRepository.findByName(combo.getName()) != null) {
-            throw new DuplicateComboException("Combo with same name already exists.");
+            throw new DuplicateComboException("Le Nom du Combo existe deja .");
         }
         if (!existingCombo.getRef().equals(combo.getRef()) && comboRepository.findByRef(combo.getRef()) != null) {
-            throw new DuplicateComboException("Combo with same reference already exists.");
+            throw new DuplicateComboException("Le reference du Combo existe deja.");
         }
         existingCombo.setName(combo.getName());
         existingCombo.setRef(combo.getRef());
@@ -116,5 +119,15 @@ public class ComboServiceImpl implements ComboService {
             throw new ComboNotFoundException("Combo not found with ID: " + comboId);
         }
     }
+
+
+
+@Override
+    public Combo findComboByRefAndEstablishmentId(String ref, Integer establishmentId) {
+        return comboRepository.findByRefAndEstablishmentId(ref, establishmentId)
+                .orElseThrow(() -> new EntityNotFoundException());
+    }
+
+
 
 }

@@ -28,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CashiersComponent } from './demo/extra/cashiers/cashiers.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddestabComponent } from './demo/extra/establishments/addestab/addestab.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { AddestabComponent } from './demo/extra/establishments/addestab/addestab
     NavItemComponent,
     NavSearchComponent,
     ToggleFullScreenDirective,
+
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import { AddestabComponent } from './demo/extra/establishments/addestab/addestab
     SharedModule,
     BrowserAnimationsModule,
     KeycloakAngularModule,
-    MatIconModule
+    MatIconModule,
+    ToastrModule.forRoot()
 
   ],
   providers: [

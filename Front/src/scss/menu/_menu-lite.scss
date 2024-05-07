@@ -21,7 +21,7 @@
   .b-title {
     margin-left: 10px;
     font-weight: 100;
-    color: $white;
+    color: #000000;
     font-size: 18px;
   }
 }
@@ -139,7 +139,7 @@
   padding: 0;
   position: relative;
   top: 0;
-  background: transparent;
+  background: rgb(255, 255, 255);
   color: $header-light-text-color;
   width: calc(100% - #{$Menu-width});
   margin-left: $Menu-width;
@@ -433,11 +433,12 @@
         border-radius: 0.25rem 0.25rem 0 0;
         padding: 15px;
         position: relative;
-        background: $primary-color;
+        background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);;
 
         img {
           width: 40px;
           margin-right: 10px;
+          background: #b27600;
         }
 
         .dud-logout {
@@ -453,6 +454,16 @@
           justify-content: center;
         }
       }
+      /* Style for the list items */
+.pro-head ul.role-list li {
+  list-style-type: none; /* Remove default list item bullets */
+  margin-bottom: 5px; /* Add margin between list items */
+}
+
+/* Style for the role icon */
+.role-icon {
+  margin-right: 5px; /* Add margin to the right of the icon */
+}
 
       .pro-body {
         padding: 20px 0;
@@ -825,7 +836,7 @@
   color: $menu-dark-text-color;
 
   .pcoded-submenu {
-    background: darken($header-dark-background, 3%);
+    background: white;
     padding: 15px 0;
   }
 
@@ -1060,7 +1071,7 @@
   }
 
   .pcoded-menu-caption {
-    color: #e8edf7;
+    color: #000000;
   }
 
   .pcoded-inner-navbar {
@@ -1102,7 +1113,7 @@
 
         > a {
           background: darken($menu-dark-background, 6%);
-          color: $white;
+          color: $primary-color;
         }
       }
     }
@@ -1144,7 +1155,10 @@
 .pcoded-content {
   position: relative;
   display: block;
-  padding: 20px;
+  
+ 
+  
+  
 }
 
 .pcoded-main-container {
@@ -1155,7 +1169,7 @@
   float: unset;
   right: 0;
   margin-left: $Menu-width;
-  min-height: 100vh;
+  min-height: 90vh;
   transition: all 0.3s ease-in-out;
 }
 // main content end
@@ -1277,9 +1291,9 @@
     }
   }
 
-  .pcoded-content {
+ /* .pcoded-content {
     padding: 30px 15px;
-  }
+  }*/
 
   .card {
     margin-bottom: 15px;

@@ -26,7 +26,7 @@ public class WebSecurityConfig {
 
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/test/anonymous", "/test/anonymous/**","/establishments/image/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/test/anonymous", "/test/anonymous/**","/establishments/image/*","/sold-products/image/*","/combo/image/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

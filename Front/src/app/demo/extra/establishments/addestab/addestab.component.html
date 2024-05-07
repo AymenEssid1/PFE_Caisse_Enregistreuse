@@ -1,87 +1,133 @@
-<!-- <div class="row">
-  <div class="col-sm-12">
-    <app-card cardTitle="Points de vente">
-      <form [formGroup]="establishmentForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="text">Nom du point de vente</label>
-          <input type="text" class="form-control" placeholder="Text" />
-          <br>
-          <label for="text">Image</label>
-          <div class="mb-3">
-            <input
-              type="file"
-              class="form-control"
-              aria-label="file example"
-              required
-            />
-            <div class="invalid-feedback">Example invalid form file feedback</div>
-          </div>
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="exampleCheck1"
-          />
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="exampleCheck1"
-          />
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="exampleCheck1"
-          />
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-      </form>
-    </app-card>
-  </div>
-</div> -->
-
-
-
 <app-card cardTitle="Points de vente">
+  <!-- Establishment form -->
+  <div *ngIf="conflictErrorMessage" class="text-danger">{{ conflictErrorMessage }}</div>
 
-    <div *ngIf="conflictErrorMessage" class="text-danger">{{ conflictErrorMessage }}</div>
+  <form [formGroup]="establishmentForm" (ngSubmit)="onSubmit()" class="row">
+    <!-- Establishment name and image inputs -->
+    <div class="col-md-6">
+      <!-- Establishment name input -->
+      <div class="form-group">
+        <label for="name">Nom du point de vente</label>
+        <input style="width: 100%;" type="text" class="form-control" formControlName="name" id="name"
+          placeholder="Nom du point de vente"
+          [ngClass]="{'is-invalid': establishmentForm.get('name').invalid && establishmentForm.get('name').touched}">
+        <div *ngIf="establishmentForm.get('name').invalid && establishmentForm.get('name').touched" class="text-danger">
+          Le nom est requis.
+        </div>
+      </div>
 
-    <form [formGroup]="establishmentForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="name">Nom du point de vente</label>
-          <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nom du point de vente"
-                 [ngClass]="{'is-invalid': establishmentForm.get('name').invalid && establishmentForm.get('name').touched}">
-          <div *ngIf="establishmentForm.get('name').invalid && establishmentForm.get('name').touched" class="text-danger">
-            Le nom est requis.
+      <!-- Image input -->
+      
+
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" class="form-control" aria-label="file example" id="image" (change)="validateImage($event);previewImage($event)"
+            accept=".jpg, .jpeg, .png"  data-browse="Choisir un fichier image"  style="width: 100%;">
+        <div class="invalid-feedback">Veuillez sélectionner un fichier au format JPG ou PNG.</div>
+    </div>
+
+      <!-- Custom checkboxes -->
+      <div class="form-group">
+        <label>Options</label>
+
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" formControlName="fidelityCheck" />
+          <label class="custom-control-label ps-2" for="fidelityCheck">Gestion de fidélité</label>
+        </div>
+
+        <div *ngIf="establishmentForm.get('fidelityCheck').value" class="form-group  row align-items-center">
+          <label for="fidelityRatio" class="col-auto">Ratio de fidélité 1 DT = </label>
+          <div class="col">
+            <input class="form-control" type="number" formControlName="fidelityRatio" id="fidelityRatio"  placeholder="Points de fidélité">
           </div>
         </div>
-        <div class="form-group">
-          <label for="image">Image</label>
-          <div class="mb-3" >
-           
-            <input
-              type="file"
-              class="form-control"
-              aria-label="file example"
-              id="image"
-              (change)="onFileSelected($event)"
-              required
-            />
-            <div class="invalid-feedback">Example invalid form file feedback</div>
-          </div>
-          <td>
-                  <ng-container *ngIf="establishmentId; else noImage">
-                    <img [src]="'http://localhost:8080/establishments/image/'+establishmentId "  width="100" height="100"
-                         class="rounded" />
-                  </ng-container>
-                  <ng-template #noImage></ng-template>
-                </td>
+       <!--  <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" formControlName="customCheck2" />
+          <label class="custom-control-label ps-2" for="customCheck2"> Gestion des Pourboires </label>
+        </div> -->
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" formControlName="tableCheck"
+            (change)="onCheckboxChange($event)" />
+          <label class="custom-control-label ps-2" for="tableCheck">Gestion des Tables </label>
         </div>
+      </div>
+
+    </div>
+
+    <!-- Image display -->
+    <div class="col-md-6 d-flex flex-column align-items-center" style="padding-top: 20px;">
+      <div class="image-container">
+        <ng-container *ngIf="!imageUrl && !establishmentId">
+          <div class="image-placeholder">Aucune image sélectionnée</div>
+        </ng-container>
+        <ng-container *ngIf="!imageUrl && establishmentId">
+          <img [src]="'http://localhost:8080/establishments/image/' + establishmentId" width="80%" height="200px"
+            class="rounded mb-3" />
+        </ng-container>
+        <ng-container *ngIf="imageUrl">
+          <img [src]="imageUrl" width="80%" height="200px" class="rounded mb-3" />
+        </ng-container>
+      </div>
+
+
+
+      <!-- Confirmer button -->
+      <div class="form-group mt-3">
         <button type="submit" class="btn btn-primary">Confirmer</button>
-    </form>
+      </div>
+    </div>
+
+
+  </form>
+
+  
+  
+
+  <!-- Tables section -->
+  <div class="tables-section mt-4" *ngIf="establishmentForm.get('tableCheck').value">
+    <!-- Header -->
+    <div class="table-header" style="width: 30%;">
+      <h3>Liste des tables</h3>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper" style="width: 30%;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let table of tables">
+            <td *ngIf="selectedTable !== table">{{ table.name }}</td>
+            <td *ngIf="selectedTable === table">
+              <input class="form-control white-input" type="text" [(ngModel)]="newTableName" style="width: 100%;">
+            </td>
+            <td>
+              <div class="d-flex">
+                <button class="btn btn-icon btn-outline-success mr-2" *ngIf="selectedTable !== table"
+                  (click)="editTable(table)"><i class="feather icon-edit"></i></button>
+                <button class="btn btn-icon btn-outline-primary mr-2" *ngIf="selectedTable === table"
+                  (click)="updateTable()"><i class="feather icon-thumbs-up"></i></button>
+                <button class="btn btn-icon btn-outline-danger" (click)="deleteTable(table.id)"><i
+                    class="feather icon-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add new table input -->
+    <div class="add-table-row">
+      <input class="form-control white-input mr-2" type="text" [(ngModel)]="newTableName2"
+        placeholder="Ajouter une Table" style="width: 20%;">
+      <button type="button" class="btn btn-icon btn-outline-primary" (click)="addTable()" style="margin-left: 10px;"><i
+          class="feather icon-plus"></i></button>
+    </div>
+  </div>
+  
+
 </app-card>
-
-
-  
-  

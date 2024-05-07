@@ -1,62 +1,95 @@
-<p>combo-form works!</p>
 
 <div class="row">
-    <div class="col-sm-12">
-      <app-card cardTitle="Combo" >
-        <div class="custom-card">
-
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>Ref</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let soldProduct of soldProducts">
-                    <td>{{ soldProduct.ref }}</td>
-                    <td>{{ soldProduct.name }}</td>
-                    <td>{{ soldProduct.price }}</td>
-                    <td>{{ soldProduct.category.categoryName }}</td>
-                    <td>
-                        <input type="checkbox" [checked]="selectedSoldProductIds.includes(soldProduct.id)" (change)="toggleSoldProductSelection(soldProduct.id)">
-                      </td>
-                    
-                  </tr>
-                </tbody>
-              </table>
+  <div class="col-sm-12">
+    <app-card cardTitle="Combo">
+      <div class="custom-card">
 
 
+        <div class="mb-3">
+          <label >Produits</label>
 
+          <input class="form-control" type="text" placeholder="Recherche" [(ngModel)]="searchText"
+            (input)="searchSoldProducts()">
         </div>
 
 
-        <form [formGroup]="comboForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label for="name">Réference du produit</label>
-              <input type="text" class="form-control" formControlName="ref" id="refstock" placeholder="Réference du combo">
-              
-            </div>
-            <div class="form-group">
-                <label for="name">Nom du Combo</label>
-                <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nom du Produit">
-                
-              </div>
-              <div class="form-group">
-                <label for="name">Prix</label>
-                <input type="number" step="any" class="form-control" formControlName="price" id="price" placeholder="Prix">
-                
-              </div>
-              
-            <button type="submit" class="btn btn-primary">Confirmer</button>
-        </form>
-      </app-card>
+        <div class="tables-container">
+          <div class="table-container">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Ref</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let soldProduct of filteredSoldProducts">
+                  <td>{{ soldProduct.ref }}</td>
+                  <td>{{ soldProduct.name }}</td>
+                  <td>{{ soldProduct.price }}</td>
+                  <td>{{ soldProduct.category.categoryName }}</td>
+                  <td>
+                    <input type="checkbox" [checked]="selectedSoldProductIds.includes(soldProduct.id)"
+                      (change)="toggleSoldProductSelection(soldProduct.id)">
+                  </td>
+    
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        
+      </div>
 
 
 
 
-      
-</div>     
+
+
+      <form [formGroup]="comboForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Réference du produit</label>
+          <input type="text" class="form-control  white-input" formControlName="ref" id="refstock" placeholder="Réference du combo">
+
+        </div>
+        <div class="form-group">
+          <label for="name">Nom du Combo</label>
+          <input type="text" class="form-control  white-input" formControlName="name" id="name" placeholder="Nom du Produit">
+
+        </div>
+        <div class="form-group">
+          <label for="name">Prix</label>
+          <input type="number" step="any" class="form-control  white-input" formControlName="price" id="price" placeholder="Prix">
+
+        </div>
+        <div class="form-group">
+          <label for="image">Image</label>
+          <div class="mb-3">
+
+            <input type="file" class="form-control" aria-label="file example" id="image"
+              (change)="onFileSelected($event)" formControlName="image" />
+            <div class="invalid-feedback">Example invalid form file feedback</div>
+          </div>
+          <td>
+            <ng-container *ngIf="CombotId; else noImage">
+              <img [src]="'http://localhost:8083/STOCK/combo/image/'+CombotId" width="100" height="100"
+                class="rounded" />
+            </ng-container>
+            <ng-template #noImage></ng-template>
+          </td>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirmer</button>
+      </form>
+    </app-card>
+
+
+
+
+
+  </div>

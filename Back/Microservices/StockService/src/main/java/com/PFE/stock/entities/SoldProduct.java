@@ -1,7 +1,9 @@
 package com.PFE.stock.entities;
 
 
+import com.PFE.stock.entities.discount.Discount;
 import com.PFE.stock.entities.image.Image;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -33,9 +35,10 @@ public class SoldProduct {
 
     private boolean status;
 
-   /* @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Image image;*/
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
 
 
@@ -47,6 +50,12 @@ public class SoldProduct {
     @OneToMany(mappedBy = "soldProduct", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StockEquivalent> stockEquivalents;
 
+
+////////////////////////////////////////////////////
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
 
 
 

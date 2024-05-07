@@ -160,7 +160,7 @@
     "symbol-observable" "4.0.0"
     "yargs" "17.7.2"
 
-"@angular/common@^17", "@angular/common@^17.0.0", "@angular/common@^17.0.0 || ^18.0.0", "@angular/common@^17.2.4", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@17.2.4":
+"@angular/common@^16.0.0 || ^17.0.0 || ^18.0.0", "@angular/common@^17", "@angular/common@^17.0.0", "@angular/common@^17.0.0 || ^18.0.0", "@angular/common@^17.2.4", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@>=16.0.0-0", "@angular/common@17.2.4":
   "integrity" "sha512-ymzDHZPQWpBKVQ7lPZucU+vBSb70Re6y5TKzkOX7oYE8Z1+tiNGLvfmzGsO2/N0lvwyZWXjkdXYEDON2hIlZ1Q=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-17.2.4.tgz"
   "version" "17.2.4"
@@ -188,7 +188,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^17", "@angular/core@^17.0.0", "@angular/core@^17.0.0 || ^18.0.0", "@angular/core@^17.2.4", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=16.0.0", "@angular/core@17.2.4":
+"@angular/core@^16.0.0 || ^17.0.0 || ^18.0.0", "@angular/core@^17", "@angular/core@^17.0.0", "@angular/core@^17.0.0 || ^18.0.0", "@angular/core@^17.2.4", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@17.2.4":
   "integrity" "sha512-5Bko+vk7H1Ce57MHuRcpZtq2Srq5euufSvwg0piPozp0yYmCqNoYN7c128kgi6PbiPQeAnKRzRbEuYd1YCU4Tw=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-17.2.4.tgz"
   "version" "17.2.4"
@@ -273,7 +273,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/platform-browser@^17.0.0 || ^18.0.0", "@angular/platform-browser@^17.2.4", "@angular/platform-browser@17.2.4":
+"@angular/platform-browser@^17.0.0 || ^18.0.0", "@angular/platform-browser@^17.2.4", "@angular/platform-browser@>=16.0.0-0", "@angular/platform-browser@17.2.4":
   "integrity" "sha512-A1jkx4ApIx76VDxm8UZLKEq+gwpKZb4qjzCTBDfjOpXB0MJQ5IaYdCrV0E/vPCKZhIfjbEHK+9H1vHRYDCcXtA=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-17.2.4.tgz"
   "version" "17.2.4"
@@ -1266,6 +1266,11 @@
   "integrity" "sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA=="
   "resolved" "https://registry.npmjs.org/@fastify/busboy/-/busboy-2.1.1.tgz"
   "version" "2.1.1"
+
+"@fortawesome/fontawesome-free@^6.5.2":
+  "integrity" "sha512-hRILoInAx8GNT5IMkrtIt9blOdrqHOnPBH+k70aWUAqPZPgopb9G5EQJFpaBx/S8zp2fC+mPW349Bziuk1o28Q=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.5.2.tgz"
+  "version" "6.5.2"
 
 "@isaacs/cliui@^8.0.2":
   "integrity" "sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA=="
@@ -5192,12 +5197,26 @@
   dependencies:
     "tslib" "^2.0.0"
 
+"ngx-scanner-qrcode@^1.6.9":
+  "integrity" "sha512-tI9ls/DQfroWODi9ttx2C42iCrvdRKafgw2tFQWe3JO6DxyeDPbW4kFHcLh9erqO4z5MA9IaVvpFn9gDz5WCiA=="
+  "resolved" "https://registry.npmjs.org/ngx-scanner-qrcode/-/ngx-scanner-qrcode-1.6.9.tgz"
+  "version" "1.6.9"
+  dependencies:
+    "tslib" "^2.3.0"
+
 "ngx-scrollbar@^13.0.3":
   "integrity" "sha512-ZpjNm9y7F5OSQh7p4x2PrwRkNl5zARPqPbRdkS5HjP8lHpG7hAFpbsjW+WlsM/6lAL5pesfVRCSlvcRJihM2sg=="
   "resolved" "https://registry.npmjs.org/ngx-scrollbar/-/ngx-scrollbar-13.0.3.tgz"
   "version" "13.0.3"
   dependencies:
     "tslib" "^2.3.1"
+
+"ngx-toastr@^18.0.0":
+  "integrity" "sha512-jZ3rOG6kygl8ittY8OltIMSo47P1VStuS01igm3MZXK6InJwHVvxU7wDHI/HGMlXSyNvWncyOuFHnnMEAifsew=="
+  "resolved" "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-18.0.0.tgz"
+  "version" "18.0.0"
+  dependencies:
+    "tslib" "^2.3.0"
 
 "node-forge@^1":
   "integrity" "sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA=="
@@ -6570,6 +6589,11 @@
   "version" "3.0.1"
   dependencies:
     "svg.js" "^2.6.5"
+
+"sweetalert2@^11.10.7":
+  "integrity" "sha512-5Jlzrmaitay6KzU+2+LhYu9q+L4v/dZ8oZyEDH14ep0C/QilCnFLHmqAyD/Lhq/lm5DiwsOs6Tr58iv8k3wyGg=="
+  "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.10.7.tgz"
+  "version" "11.10.7"
 
 "symbol-observable@4.0.0":
   "integrity" "sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ=="

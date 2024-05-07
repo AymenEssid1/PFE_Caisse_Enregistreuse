@@ -15,8 +15,9 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 // third party
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
-import { NavigationItem } from '../layout/admin/navigation/navigation';
+import { NgxScannerQrcodeModule, LOAD_WASM } from 'ngx-scanner-qrcode';
 
+LOAD_WASM().subscribe();
 
 @NgModule({
   declarations: [SpinnerComponent],
@@ -29,6 +30,9 @@ import { NavigationItem } from '../layout/admin/navigation/navigation';
     NgScrollbarModule,
     NgbCollapseModule,
     BreadcrumbsComponent,
+    NgxScannerQrcodeModule
+    
+    
   ],
   exports: [
     CommonModule,

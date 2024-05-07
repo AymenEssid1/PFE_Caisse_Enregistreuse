@@ -1,15 +1,22 @@
 package com.PFE.stock.controllers;
 
 
+import com.PFE.stock.entities.Establishment;
 import com.PFE.stock.entities.SoldProduct;
 import com.PFE.stock.entities.StockEquivalent;
+import com.PFE.stock.entities.image.IFileLocationService;
+import com.PFE.stock.entities.image.Image;
+import com.PFE.stock.repos.SoldProductRepository;
 import com.PFE.stock.services.interfaces.SoldProductService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,22 +25,85 @@ import java.util.List;
 public class SoldProductController {
 
     private final SoldProductService soldProductService;
+    private final IFileLocationService fileLocationService;
 
-    public SoldProductController(SoldProductService soldProductService) {
+
+    public SoldProductController(SoldProductService soldProductService, IFileLocationService fileLocationService) {
         this.soldProductService = soldProductService;
+        this.fileLocationService = fileLocationService;
+
+    }
+
+    @Autowired
+    SoldProductRepository soldProductRepository;
+
+
+
+    @PutMapping(value="/update-image/{spId}",consumes = "multipart/form-data")
+    public ResponseEntity<SoldProduct> updateImage(@PathVariable("spId") Integer id, @RequestParam("image") MultipartFile file) {
+        try {
+            SoldProduct u =soldProductService.getById(id);
+            System.out.println(u.getImage().getId());
+            long imageId=u.getImage().getId();
+
+            Image updatedImage = fileLocationService.update(imageId, file);
+            return ResponseEntity.ok(u);
+        } catch (EntityNotFoundException e){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @PostMapping(value = "/addImagetoEstab/{spId}", consumes = "multipart/form-data")   //use @modelattribute maybe
+    public ResponseEntity<SoldProduct> addImagetoEstab(@PathVariable("spId") Integer id,@RequestParam("image") MultipartFile image) {
+        try {
+
+            try {
+                SoldProduct sp =soldProductService.getById(id);
+                Image savedImageData = fileLocationService.save(image);
+                sp.setImage(savedImageData);
+                // Update other fields as needed
+                soldProductRepository.save(sp);
+                return ResponseEntity.ok(sp);
+            } catch (EntityNotFoundException e){
+
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @GetMapping(value = "/image/{spId}")
+    public ResponseEntity<FileSystemResource> downloadImage(@PathVariable("spId") Integer id) {
+        try {
+            SoldProduct sp =soldProductService.getById(id);
+            FileSystemResource fileSystemResource = fileLocationService.find(sp.getImage().getId());
+            return  ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(fileSystemResource);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/add-sold-product/{establishmentId}")
-    public ResponseEntity<SoldProduct> addSoldProduct(
+    public ResponseEntity<Object> addSoldProduct(
             @PathVariable("establishmentId") Integer establishmentId,
             @RequestBody SoldProduct soldProduct
     ) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(soldProductService.addSoldProduct(establishmentId, soldProduct));
         } catch (EntityExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("le nom ou la reference existe deja");
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Internal server error");
         }
     }
 
@@ -47,9 +117,9 @@ public class SoldProductController {
             SoldProduct result = soldProductService.updateSoldProduct(establishmentId,soldProductId, updatedSoldProduct);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Sold Product not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produit introuvable");
         } catch (EntityExistsException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Another sold product with the same name or ref already exists in the same establishment");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("le nom ou la reference existe deja");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
@@ -69,5 +139,27 @@ public class SoldProductController {
     @GetMapping("/get-all-sold-products/{establishmentId}")
     public ResponseEntity<List<SoldProduct>> getAllSoldProducts(@PathVariable("establishmentId") Integer establishmentId) {
         return ResponseEntity.status(HttpStatus.OK).body(soldProductService.getAllSoldProducts(establishmentId));
+    }
+
+
+    @GetMapping("getby/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
+        try{SoldProduct soldProduct = soldProductService.getById(id);
+
+            return new ResponseEntity<>(soldProduct, HttpStatus.OK);
+         }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/searchByRef/{id}/{ref}")
+    public ResponseEntity<?> getById(@PathVariable("id") Integer id,@PathVariable("ref") String ref) {
+        try{SoldProduct soldProduct = soldProductService.findByRef(ref,id);
+
+            return new ResponseEntity<>(soldProduct, HttpStatus.OK);
+        }catch (EntityNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
 }

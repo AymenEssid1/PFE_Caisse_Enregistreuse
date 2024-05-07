@@ -2,9 +2,14 @@
 
 @import "scss/variables";
 
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+
 /* fonts-icon */
 @import "scss/fonts/fontawesome/scss/fontawesome";
 @import "scss/fonts/feather/iconfont";
+
+
 
 @import "scss/general";
 @import "scss/generic";
@@ -21,3 +26,33 @@
 
 @import "scss/custom";
 @import 'material-icons/iconfont/material-icons.scss';
+
+
+
+
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+
+
+// if you'd like to use it without importing all of bootstrap it requires
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+// Override toast styles with custom colors
+.toast-success {
+    background-color: #1de9b6 !important; /* Success color */
+    color: #fff !important; /* Text color */
+}
+
+.toast-error {
+    background-color: #f44236 !important; /* Danger color */
+    color: #fff !important; /* Text color */
+}
+
+.toast-warning {
+    background-color: #f4c22b !important; /* Warning color */
+    color: #fff !important; /* Text color */
+}
+

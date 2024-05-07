@@ -26,6 +26,8 @@ public class StockProduct {
     private String name;
     private float  quantity;
 
+    private Unit unit;
+
 
 
     @ManyToOne

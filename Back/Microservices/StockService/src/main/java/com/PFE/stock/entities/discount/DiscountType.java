@@ -2,8 +2,7 @@ package com.PFE.stock.entities.discount;
 
 public enum DiscountType {
     FLAT("Flat Discount"),
-    BUY_X_GET_Y("Buy X Get Y"),
-    TIME_BOUND("Time-bound Discount");
+    BUY_X_GET_Y("Buy X Get Y");
 
     private final String displayName;
 

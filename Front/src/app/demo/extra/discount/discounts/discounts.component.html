@@ -1,0 +1,91 @@
+<p>discounts works!</p>
+
+
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Produit de stock" >
+        <div class="custom-card">
+
+           
+
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;">
+                <button class="btn btn-outline-success" ngbDropdownToggle type="button">
+                    Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
+                </button>
+                <div class="dropdown-menu-container" ngbDropdownMenu>
+                    <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:" (click)="fetchDiscounts(establishment.id)">
+                        {{ establishment.name }}
+                      </a>
+                </div>
+            </div>
+
+              <button type="button" class="btn btn-icon btn-primary" style="width:fit-content" (click)="onAdd(selectedEstablishment.id)">Ajouter </button>
+
+
+              
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+                    <th>percentage</th>
+                    <th>type</th>
+                    <th>buy x get y</th>
+                    <th>dates de début et fin</th>
+                    <th>produits</th>
+                    <th>combos</th>
+                    <th>actions</th>
+    
+                  </tr>
+
+                  
+                </thead>
+                <tbody>
+                <!-- Add this code inside the <tbody> tag -->
+                    <tr *ngFor="let discount of discounts">
+                        <td>{{ discount.percentage }}</td>
+                        <td>{{ discount.discountType }}</td>
+                        <td>
+                            <ng-container *ngIf="discount.discountType == 'BUY_X_GET_Y'">
+                                <ul><li>{{ discount.buyX }} + {{ discount.getY }}</li></ul>
+                            </ng-container>
+                            <ng-container *ngIf="discount.discountType !== 'BUY_X_GET_Y'">
+                                N/A
+                            </ng-container>
+                        </td>
+                        <td>
+                            
+                                <ul><li>{{ formatDate(discount.startTime) }}</li>
+                                    <li>{{ formatDate(discount.endTime) }}</li>
+                                </ul>
+                            
+                            
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let product of discount.soldProducts">{{ product.name }}</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let combo of discount.combos">{{ combo.name }}</li>
+                            </ul>
+                        </td>
+                        <td>
+                     
+                            <button (click)="onEdit(selectedEstablishment.id,discount.id)" type="button"
+                            class="btn btn-icon btn-outline-success">
+                            <i class="feather icon-edit"></i>
+                          </button>
+                          <button (click)="onDelete(discount.id)" type="button"
+                            class="btn btn-icon btn-outline-danger">
+                            <i class="feather icon-trash"></i>
+                          </button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+              </table>
+
+        </div>
+      </app-card>
+    </div>
+</div>

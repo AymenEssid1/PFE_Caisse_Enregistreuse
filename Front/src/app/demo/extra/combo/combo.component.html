@@ -1,57 +1,108 @@
 <div class="row">
-    <div class="col-sm-12">
-      <app-card cardTitle="Produit de stock" >
-        <div class="custom-card">
-
-           
-
-            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;">
-                <button class="btn btn-outline-success" ngbDropdownToggle type="button">
-                    Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
-                </button>
-                <div class="dropdown-menu-container" ngbDropdownMenu>
-                    <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:" (click)="fetchCombos(establishment.id)">
-                        {{ establishment.name }}
-                      </a>
-                </div>
-            </div>
-
-              <button type="button" class="btn btn-icon btn-primary" style="width:fit-content" (click)=" openAddCombo(selectedEstablishment.id)">Ajouter </button>
+  <div class="col-sm-12">
+    <app-card cardTitle="Combos">
+      <div class="custom-card">
 
 
-              
-              <table class="table table-responsive">
-                <thead>
-                  <tr>
-                    <th>reference</th>
-                    <th>name</th>
-                    <th>Price</th>
-                    <th>Produits</th>
-                    <th>actions</th>
-    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let combo of combos">
-                    <td>{{combo.ref}}</td>
-                    <td>{{ combo.name }}</td>
-                    <td>{{ combo.price}}</td>
-                    <td>
-                        <ul>
-                          <li *ngFor="let produit of combo.soldProducts">
-                            {{  produit.name}} 
-                          </li>
-                        </ul>
-                      </td>
-                    <td><button type="button" class="btn btn-icon btn-danger" style="width: fit-content;" (click)="this.onDelete(combo.id,selectedEstablishment.id)">supprimer</button>
-                        <button type="button" class="btn btn-icon btn-primary" style="width: fit-content;" (click)="onEdit(selectedEstablishment.id,combo.id)">éditer</button>
-    
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        
+        
 
+        <div class="d-flex align-items-center mb-3">
+          <input class="form-control me-2" type="text" placeholder="Rechercher" [(ngModel)]="searchText"
+            (input)="searchByName()">
         </div>
-      </app-card>
-    </div>
+        
+
+
+        <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;">
+          <button class="btn btn-outline-primary" ngbDropdownToggle type="button">
+            Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
+          </button>
+          <div class="dropdown-menu-container" style="max-height: 150px; overflow-y: auto;width:100%;" ngbDropdownMenu>
+            <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:" (click)="fetchCombos(establishment.id)">
+              {{ establishment.name }}
+            </a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" (click)=" openAddCombo(selectedEstablishment.id)" >
+          <i class="fa-solid fa-plus" style="color: #ffffff;"></i>Ajouter
+        </button>
+        <div class="btn-group mb-2 me-2"  style="width: 30%;">
+          
+          
+          
+          
+          <div class="d-flex align-items-center">
+            
+
+          
+            <nav aria-label="Page navigation example" style="margin-left: 150%;">
+              <ul class="pagination mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a class="page-link" href="javascript:" (click)="previousPage()">Précedent</a>
+                </li>
+                <li class="page-item" *ngFor="let page of totalPagesArray" [class.active]="currentPage === page"
+                  [ngClass]="{ 'custom-active': currentPage === page }">
+                  <a class="page-link" href="javascript:" (click)="goToPage(page)">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" href="javascript:" (click)="nextPage()">Suivant</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+
+        
+
+
+
+
+
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th></th>
+              <th>reference</th>
+              <th>name</th>
+              <th>Price</th>
+              <th>Produits</th>
+              <th>actions</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let combo of currentCombos">
+              <td class="text-center">
+                <img [src]="'http://localhost:8080/combo/image/' + combo.id" alt="no image" width="100" height="100"
+                  class="rounded">
+              </td>
+              <td class="align-middle">{{combo.ref}}</td>
+              <td class="align-middle">{{ combo.name }}</td>
+              <td class="align-middle">{{ combo.price}}</td>
+              <td class="align-middle">
+                <ul>
+                  <li *ngFor="let produit of combo.soldProducts">
+                    {{ produit.name}}
+                  </li>
+                </ul>
+              </td>
+              <td class="align-middle">
+                <button (click)="onEdit(selectedEstablishment.id,combo.id)" type="button"
+                  class="btn btn-icon btn-outline-success">
+                  <i class="feather icon-edit"></i>
+                </button>
+                <button (click)="this.onDelete(combo.id,selectedEstablishment.id)" type="button"
+                  class="btn btn-icon btn-outline-danger">
+                  <i class="feather icon-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </app-card>
+  </div>
 </div>

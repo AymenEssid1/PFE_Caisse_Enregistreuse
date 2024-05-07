@@ -4,6 +4,7 @@ import { StockServices } from '../service/stockService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockProduct } from '../service/models';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { NotificationService } from '../../notificationService';
 
 @Component({
   selector: 'app-stock-form',
@@ -18,7 +19,7 @@ export class StockFormComponent {
 
   constructor(private formBuilder: FormBuilder, private stockService :StockServices,    private route: ActivatedRoute,
 
-    private router:Router) {}
+    private router:Router,private notificationService: NotificationService) {}
 
 
     stockProductForm: FormGroup ;
@@ -39,14 +40,44 @@ export class StockFormComponent {
         }
       });
     }
-  
+    units: string[] = ['KG', 'Litres', 'Pièces']; // Define and populate the list of units
+
     initializeForm(): void {
       this.stockProductForm = this.formBuilder.group({
 
         refstock: ['', Validators.required],
         name: ['', Validators.required],
-        quantity: ['', Validators.required],
+        quantity: ['', [Validators.required, Validators.min(0)]],
+        unit: ['', Validators.required] // Add a form control for unit selection
+
       });
+    }
+
+    getRefstockErrorMessage(): string {
+      if (this.stockProductForm.get('refstock').hasError('required')) {
+        return 'La référence du produit est requise';
+      } return '';
+    }
+    
+    getNameErrorMessage(): string {
+      if (this.stockProductForm.get('name').hasError('required')) {
+        return 'Le nom du produit est requis';
+      } return '';
+    }
+    
+    getUnitErrorMessage(): string {
+      if (this.stockProductForm.get('unit').hasError('required')) {
+        return 'L\'unité du produit est requise';
+      } return '';
+    }
+    
+    getQuantityErrorMessage(): string {
+      const quantityControl = this.stockProductForm.get('quantity');
+      if (quantityControl.hasError('required')) {
+        return 'La quantité est requise';
+      } else if (quantityControl.hasError('min')) {
+        return 'La quantité doit être supérieure ou égale à 0';
+      } return '';
     }
   
     onSubmit(): void {
@@ -57,6 +88,8 @@ export class StockFormComponent {
           this.addStockProduct();
         }
       } else {
+        this.notificationService.showError("","Formulaire invalide vérifier tous les champs")
+
         console.error('Form is invalid. Cannot submit.');
       }
     }
@@ -70,6 +103,7 @@ export class StockFormComponent {
         refstock: formData.refstock,
         name: formData.name,
         quantity: formData.quantity,
+        unit:formData.unit,
         establishment: { id: this.stockProductEstabId } // Assuming Establishment model has an id property
       });
 
@@ -99,6 +133,7 @@ editStockProduct(): void {
     refstock: formData.refstock,
     name: formData.name,
     quantity: formData.quantity,
+    unit:formData.unit,
     establishment: { id: this.stockProductEstabId }
   });
 

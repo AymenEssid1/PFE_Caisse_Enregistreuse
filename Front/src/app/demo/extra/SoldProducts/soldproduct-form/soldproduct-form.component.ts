@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { Category, SoldProduct, StockEquivalent, StockProduct } from '../../Stock/service/models';
 import { StockServices } from '../../Stock/service/stockService';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
+import { NotificationService } from '../../notificationService';
 
 @Component({
   selector: 'app-soldproduct-form',
@@ -18,25 +21,136 @@ export class SoldproductFormComponent implements OnInit {
   newCategoryName: string = '';
   newCategoryName2: string = '';
   establishmentId: number;
+  soldProductId: number;
 
   constructor(
+    private notificationService:NotificationService,
     private stockService: StockServices,
     private soldService: SoldServices,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder,
+     private cdr: ChangeDetectorRef
   ) { }
 
 
 
   ngOnInit(): void {
+
+    
     this.route.params.subscribe(params => {
+      this.initializeForm();
       this.establishmentId = params['estabid'];
-      if (this.establishmentId) {
-        this.fetchStockProducts(this.establishmentId);
-        this.fetchCategories(this.establishmentId);
-      }
+      this.soldProductId = params['id']
+      this.fetchStockProducts(this.establishmentId);
+    this.fetchCategories(this.establishmentId);
+      if (this.soldProductId) {
+        this.fetchSoldDetails(this.soldProductId);
+
+      } else { console.log("where u at bro"); }
+
+     
+
+    });
+
+
+  }
+
+  soldForm: FormGroup;
+
+  initializeForm(): void {
+    this.soldForm = this.formBuilder.group({
+
+      ref: ['', Validators.required],
+      name: ['', Validators.required],
+      price: ['', Validators.required],
     });
   }
+
+  validateImage(event: any): void {
+    const file = event.target.files[0];
+    const fileType = file.type;
+    if (fileType !== 'image/jpeg' && fileType !== 'image/png') {
+       
+        event.target.value = '';
+        
+        const feedback = document.querySelector('.invalid-feedback');
+        if (feedback) {
+            feedback.classList.add('d-block'); // Display the feedback
+        }
+    } else {
+     
+        const feedback = document.querySelector('.invalid-feedback');
+        if (feedback) {
+            feedback.classList.remove('d-block'); // Hide the feedback
+        }
+    }
+}
+
+  oldquant:number[]=[];
+  Quantities: number[] = [];
+
+  fetchSoldDetails(id: number): void {
+    this.soldService.getById(id).subscribe(
+      (soldProduct) => {
+
+        this.soldForm.patchValue({
+          name: soldProduct.name,
+          ref:soldProduct.ref,
+          price:soldProduct.price
+  
+        });
+        console.log('Sold product details:', JSON.stringify(soldProduct));
+      this.selectedStockProductIds = soldProduct.stockEquivalents.map(stockEquivalent => stockEquivalent.stockproduct.id);
+      this.Quantities = soldProduct.stockEquivalents.map(stockEquivalent => stockEquivalent.quantity);
+
+      console.log(this.selectedStockProductIds
+        );
+      this.selectedStockProductPositions = this.selectedStockProductIds.map(id =>
+      this.stockProducts.findIndex(product => product.id === id));
+      console.log(this.selectedStockProductPositions);
+      this.selectedStockProducts = this.stockProducts.filter(product => this.selectedStockProductIds.includes(product.id));
+
+      console.log(this.selectedStockProducts);
+
+      for (let i = 0; i < this.selectedStockProductPositions.length; i++) {
+        const position = this.selectedStockProductPositions[i];
+        const quantity = this.Quantities[i];
+        this.selectedQuantities[position] = quantity; 
+        console.log(this.selectedQuantities);
+      }
+
+
+       this.onCategorySelect(soldProduct.category);
+             this.cdr.detectChanges();
+
+
+      },
+      (error) => {
+        console.error('Error fetching sold product details:', error);
+      }
+    );
+  }
+
+
+  
+
+  
+  
+
+  areCategoriesEqual(category1: Category | null, category2: Category | null): boolean {
+    if (category1 === null && category2 === null) {
+      return true; // Both categories are null, consider them equal
+    } else if (category1 === null || category2 === null) {
+      return false; // One category is null while the other is not, consider them not equal
+    } else {
+      // Compare the properties of the two non-null category objects
+      return category1.categoryName === category2.categoryName /* Add other properties to compare */;
+    }
+  }
+  
+  
+  
 
   fetchCategories(establishmentId: number): void {
     this.soldService.getAllCategories(establishmentId).subscribe(
@@ -101,7 +215,6 @@ export class SoldproductFormComponent implements OnInit {
     );
   }
 
-  // This method is called when the input field for adding a new category changes
   onNewCategoryNameChange(event: any): void {
     this.newCategoryName = event.target.value;
   }
@@ -117,13 +230,10 @@ export class SoldproductFormComponent implements OnInit {
       , (error) => { console.log('error fetching stock products', error); })
   }
 
-
-
-
   selectedCategory3: Category | null = null;
-  selectedStockProducts: StockProduct[] = [];
 
   onCategorySelect(category: Category): void {
+    console.log(category);
     if (this.selectedCategory3 === category) {
       this.selectedCategory3 = null; // Deselect the category if it's already selected
     } else {
@@ -132,37 +242,53 @@ export class SoldproductFormComponent implements OnInit {
     console.log("Selected category:", this.selectedCategory3);
   }
 
+  
+   
+  selectedStockProductPositions: number[] = [];
+  selectedStockProductIds: number[] = [];
+  selectedStockProducts: StockProduct[] = []; // New array to store selected sold products
 
-  selectedSoldProductIndices: number[] = [];
+  
 
-  onStockProductSelect(stockProduct: StockProduct,index: number): void {
-    if (this.selectedStockProducts.includes(stockProduct)) {
-      this.selectedStockProducts = this.selectedStockProducts.filter(stock => stock !== stockProduct);
+  toggleStockProductSelection(stockProductId: number): void {
+    if (this.isSelectedStockProduct(stockProductId)) {
+      this.selectedStockProductIds = this.selectedStockProductIds.filter(id => id !== stockProductId);
+      this.selectedStockProducts = this.stockProducts.filter(product => this.selectedStockProductIds.includes(product.id));
+
     } else {
-      this.selectedStockProducts.push(stockProduct);
-    }
-    console.log("Selected stock products:", this.selectedStockProducts);
+      this.selectedStockProductIds.push(stockProductId);
+      this.selectedStockProducts = this.stockProducts.filter(product => this.selectedStockProductIds.includes(product.id));
 
-    const selectedIndex = this.selectedSoldProductIndices.indexOf(index);
-  if (selectedIndex !== -1) {
-    // If selected, remove it from the array
-    this.selectedSoldProductIndices.splice(selectedIndex, 1);
-  } else {
-    // If not selected, add it to the array
-    this.selectedSoldProductIndices.push(index);
+    }
+    this.selectedStockProductPositions = this.selectedStockProductIds.map(id =>
+      this.stockProducts.findIndex(product => product.id === id)) .sort((a, b) => a - b);
+      console.log(stockProductId);
+
+   console.log('Selected Sold Product IDs:', this.selectedStockProductIds);
+   console.log('selected stock products   ', this.selectedStockProducts);
+   console.log('Selected Sold Product Positions:', this.selectedStockProductPositions);
+
+
+
+
   }
-  console.log("Selected sold product indices:", this.selectedSoldProductIndices);
+
+  
+
+  isSelectedStockProduct(stockProductId: number): boolean {
+    return this.selectedStockProductIds.includes(stockProductId);
   }
+
 
 
   selectedQuantities: number[] = [];
   stockEquivalents: StockEquivalent[] = []
-  
+
 
 
   submitted: boolean = false;
   newSoldProduct: SoldProduct = {
-    id:1,
+    id: 1,
     ref: '',
     name: '',
     price: 0,
@@ -170,124 +296,205 @@ export class SoldproductFormComponent implements OnInit {
     stockEquivalents: []
   };
 
+
+  newStockEquivalents: StockEquivalent[] = [];
+
+
   onSubmit(): void {
 
-    console.log("list of indexes ", this.selectedSoldProductIndices);
-    // Check if any of the form fields is empty
-    if (!this.newSoldProduct.ref || !this.newSoldProduct.name || !this.newSoldProduct.price) {
-      alert('Please fill in all fields.');
-      return;
-    }
-  
-    // Check if a category is selected
-    if (!this.selectedCategory3) {
-      alert('Please select a category.');
-      return;
-    }
-  
-    // Check if there is at least one stock equivalent and validate quantities
-    if (this.selectedStockProducts.length === 0) {
-      alert('Please select at least one stock product.');
-      return;
-    }
-    else{console.log(this.selectedStockProducts);}
 
-  
-    // Create stock equivalents
-    const newStockEquivalents: StockEquivalent[] = [];
-    
+
+    if (!this.selectedCategory3) {
+      this.notificationService.showWarning('','Une catégorie doit être sélectionné.');
+      return;
+    }
+
+    if (this.selectedStockProductIds.length === 0) {
+      this.notificationService.showWarning('','Au moins un produit de stock doit être sélectionné');
+      return;
+    }
+    else { console.log(this.selectedStockProducts); }
+
+
     // Loop through selected stock products and their quantities
-    for (let i = 0; i < this.selectedStockProducts.length; i++) {
+    for (let i = 0; i < this.selectedStockProductPositions.length; i++) {
+      const position = this.selectedStockProductPositions[i];
+
       const stockProduct = this.selectedStockProducts[i];
-      const quantity = this.selectedQuantities[ this.selectedSoldProductIndices[i]];
-      console.log("selected quant"+quantity+" id:"+i);
+      const quantity = this.selectedQuantities[position];
+      console.log("selected quant" + quantity + " id:" + i);
       // Check if quantity is missing
       if (!quantity || isNaN(quantity)) {
-        alert('Please enter a valid quantity for all selected stock products.');
+        this.newStockEquivalents=[];
+        this.notificationService.showWarning('','Le champs de quantité doit être rempli.');
+        
         return;
       }
-  
+
       // Create new stock equivalent
       const stockEquivalent: StockEquivalent = {
         quantity: quantity,
         stockproduct: stockProduct
       };
 
-  
-      // Add it to the list of stock equivalents
-      newStockEquivalents.push(stockEquivalent);
-      console.log("list of created SE  :   "+newStockEquivalents.length);
-    }
-  
-    // Create SoldProduct instance
-    const soldProduct: SoldProduct = {
-      id:1,
-      ref: this.newSoldProduct.ref,
-      name: this.newSoldProduct.name,
-      price: this.newSoldProduct.price,
-      category: this.selectedCategory3,
-      stockEquivalents: newStockEquivalents
-    };
-  
-    // Display the SoldProduct instance in the console
-    console.log(soldProduct);
 
-    this.soldService.addSoldProduct(this.establishmentId, soldProduct)
-      .subscribe(
-        (response) => {
-          console.log('Sold product added successfully:', response);
-          console.log("aaaaaaa");
-          this.router.navigate(['/admin/sold'])
-          // Handle success, if needed
-        },
-        (error) => {
-          console.error('Error adding sold product:', error);
-          // Handle error, if needed
-        }
-      );
+      // Add it to the list of stock equivalents
+      this.newStockEquivalents.push(stockEquivalent);
+      console.log("list of created SE:", JSON.stringify(this.newStockEquivalents));
+    }
+
+
+   
+    if(this.soldProductId){this.edit();}else{this.add();}
 
   }
+  imageFile: File; 
+
+
+ 
+  imageUrl: string = ''; // Initialize imageUrl as an empty string
+
+  previewImage(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imageUrl = reader.result as string;
+    }
+
+    reader.readAsDataURL(file);
+    this.imageFile = event.target.files[0];
+
+  }
+
+  add() {
+
+    if (this.soldForm.valid) {
+
+      const soldProduct: SoldProduct = {
+        id: 1,
+        ref: this.soldForm.value.ref,
+        name: this.soldForm.value.name,
+        price: this.soldForm.value.price,
+        category: this.selectedCategory3,
+        stockEquivalents: this.newStockEquivalents
+      }
+
+      console.log(soldProduct);
+
+      this.soldService.addSoldProduct(this.establishmentId, soldProduct)
+        .subscribe(
+          (sp: SoldProduct) => {
+            console.log('Sold product added successfully:', sp);
+            
+            ////////////////////////////////////////////
+
+             // Get establishment by  ID
+        this.soldService.getById(sp.id).subscribe(
+          (spWithId: SoldProduct) => {
+            console.log('Establishment with ID:', spWithId);
   
+            // Assign image to the estab
+            this.soldService.addImageToSp(spWithId.id, this.imageFile).subscribe(
+              (spWithImage: SoldProduct) => {
+                console.log('sp with image:', spWithImage);
+            
+              },
+              (error) => {
+                console.error('Error adding image :', error);
+              }
+            );
+          },
+          (error) => {
+            console.error('Error fetching sp by ID:', error);
+          }
+        );
+            ///////////////////////////////////////////////
+
+           this.router.navigate(['/admin/sold'])
+           this.notificationService.showSuccess('','Produit ajouté  avec succés ')
+          },
+          (error) => {
+            console.error('Error adding sold product:', error);
+           this.notificationService.showError('',error);
+           this.newStockEquivalents=[];
+          }
+        );
+    }
+    else {
+      this.newStockEquivalents=[];
+      console.error('Form is invalid. Cannot submit.');
+      this.notificationService.showError('','Vous devez Remplir tous les champs')
+    }
+
+  }
+
+
+
+
+edit() {
+
+  if (this.soldForm.valid) {
+
+    // Create SoldProduct instance
+    const soldProduct: SoldProduct = {
+      id: 1,
+      ref: this.soldForm.value.ref,
+      name: this.soldForm.value.name,
+      price: this.soldForm.value.price,
+      category: this.selectedCategory3,
+      stockEquivalents: this.newStockEquivalents
+    }
+
+
+
+    // Display the SoldProduct instance in the console
+    console.log(JSON.stringify(soldProduct));
+
+    this.soldService.updateSoldProduct(this.soldProductId, this.establishmentId, soldProduct).subscribe(
+      (updatedSoldProduct) => {
+        console.log('Sold product updated:', updatedSoldProduct);
+        this.updateImage();
+
+        this.notificationService.showSuccess('','Produit modifié avec succés ')
+        // Handle success if needed
+      },
+      (error) => {
+        console.error('Error updating sold product:', error);
+        this.notificationService.showError(error, 'Error'); // Display error message as toast
+        this.newStockEquivalents=[];
+
+      }
+    );
+  }
+  else {
+    this.newStockEquivalents=[];
+    console.error('Form is invalid. Cannot submit.');
+    this.notificationService.showError("","Formulaire invalide vérifier tous les champs");
+  }
 
 }
 
 
-/*createStockEquivalents(): void {
-    const newStockEquivalents: StockEquivalent[] = [];
-    let hasInvalidQuantity = false; // Flag to track if any invalid quantities were found
-
-    // Loop through selected stock products and their quantities
-    for (let i = 0; i < this.selectedStockProducts.length; i++) {
-      const stockProduct = this.selectedStockProducts[i];
-      const quantity = this.selectedQuantities[i];
-
-      // Check if quantity is empty or not a number
-      if (!quantity || isNaN(quantity)) {
-        // Set the flag to true to indicate that an invalid quantity was found
-        hasInvalidQuantity = true;
-        // Skip this stock product
-        continue;
-      }
-
-      // Create new stock equivalent
-      const stockEquivalent: StockEquivalent = {
-        quantity: quantity,
-        stockProduct: stockProduct
-      };
-
-      // Add it to the list of stock equivalents
-      newStockEquivalents.push(stockEquivalent);
-    }
-
-    if (hasInvalidQuantity) {
-      // Display error message and deny creation of stock equivalents
-      alert('Please enter valid quantities for all selected stock products.');
-      return; // Exit the method without adding any stock equivalents
-    }
-
-    // Add the new stock equivalents to the existing list
-    this.stockEquivalents = this.stockEquivalents.concat(newStockEquivalents);
 
 
-    console.log(this.stockEquivalents);
-  }*/
+updateImage(): void {
+  if (this.imageFile) {
+    this.soldService
+      .addImageToSp(this.soldProductId, this.imageFile)
+      .subscribe(
+        (SP: SoldProduct) => {
+          console.log('SP with image:', SP);
+          this.router.navigate(['/admin/sold']);
+        },
+        (error) => {
+          console.error('Error adding image:', error);
+        }
+      );
+  } else {
+    console.log('No image selected. Skipping update.');
+    this.router.navigate(['/admin/sold']);
+  }
+}
+
+}

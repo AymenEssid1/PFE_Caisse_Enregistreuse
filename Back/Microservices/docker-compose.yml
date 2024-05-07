@@ -25,6 +25,19 @@ services:
     ports:
       - "3307:3306"  # Different host port for the second MySQL instance
     restart: unless-stopped
+  mysql3:
+    container_name: mysql3
+    image: mysql
+    environment:
+      MYSQL_USER: aymen
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: PaymentDB
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mysql3:/var/lib/mysql
+    ports:
+      - "3308:3306"  # Different host port for the second MySQL instance
+    restart: unless-stopped
 ####################################################################################################
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -63,3 +76,4 @@ services:
 volumes:
   mysql1:
   mysql2:
+  mysql3:

@@ -16,6 +16,9 @@ import { SoldproductFormComponent } from './demo/extra/SoldProducts/soldproduct-
 import { ComboComponent } from './demo/extra/combo/combo.component';
 import { ComboFormComponent } from './demo/extra/combo/combo-form/combo-form.component';
 import { ForgotPasswordComponent } from './demo/pages/authentication/forgot-password/forgot-password.component';
+import { DiscountsComponent } from './demo/extra/discount/discounts/discounts.component';
+import { DiscountFormComponent } from './demo/extra/discount/discount-form/discount-form.component';
+import { POSComponent } from './demo/extra/pos/pos.component';
 export const routes: Routes = [
 
   {
@@ -84,7 +87,8 @@ export const routes: Routes = [
       },
       
       {
-        path: 'caissiers',component: CashiersComponent
+        path: 'caissiers',component: CashiersComponent,
+        canActivate: [AuthGuard]
         
       },
       
@@ -115,6 +119,22 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
         
       },
+      {
+        path: 'discount',component: DiscountsComponent,
+        canActivate: [AuthGuard]
+        
+      },
+      {
+        path: 'discountF',component: DiscountFormComponent,
+        canActivate: [AuthGuard]
+        
+      },
+      {
+        path: 'pos',component: POSComponent,
+        canActivate: [AuthGuard]
+        
+      },
+      
       
     ],
   },

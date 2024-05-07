@@ -3,6 +3,10 @@
 ==========================  **/
 
 .table {
+
+  max-height: 50px !important;
+  overflow-y: auto; /* Enable vertical scrollbar if needed */
+  
   td,
   th {
     border-top: 1px solid $theme-border;
@@ -18,6 +22,7 @@
     border-top: 2px solid $theme-border;
   }
 }
+
 // Border versions
 
 .table-bordered {

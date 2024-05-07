@@ -11,4 +11,10 @@ public interface SoldProductRepository extends JpaRepository<SoldProduct, Intege
     Optional<SoldProduct> findByRefAndCategoryEstablishment(String ref, Establishment establishment);
     Optional<SoldProduct> findByNameAndCategoryEstablishment(String name, Establishment establishment);
     List<SoldProduct> findAllByCategoryEstablishment(Establishment establishment);
+
+
+
+    Optional<SoldProduct> findByRefAndCategoryEstablishmentId(String ref,Integer establishmentId);
+
+
 }

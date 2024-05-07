@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { EstablishmentService } from '../../establishments/Service/EstablishmentService';
 import { StockProduct } from '../service/models';
 import { StockServices } from '../service/stockService';
+import Swal from 'sweetalert2';
+import { NotificationService } from '../../notificationService';
+
 
 @Component({
   selector: 'app-stock',
@@ -67,16 +70,30 @@ export class StockComponent {
     this.router.navigate(['/admin/stockF', { id: id ,estabid: estabid}]);
  }
 
- onDelete(id: number,estabid:number): void {
-  this.stockService.deleteStockProduct(id)
-    .subscribe(
-      () => { console.log("stock product deleted"+ id);
-        this.load(estabid);
-      },
-      (error) => {
-        console.error('Error deleting stock product', error);
-      }
-    );
+ onDelete(id: number, estabid: number): void {
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: 'Vous ne pourrez pas récupérer ce point de vente!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Oui, supprimer!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // If user confirms the deletion
+      this.stockService.deleteStockProduct(id)
+        .subscribe(
+          () => {
+            console.log("Stock product deleted: " + id);
+            this.load(estabid);
+          },
+          (error) => {
+            console.error('Error deleting stock product', error);
+          }
+        );
+    }
+  });
 }
 
 

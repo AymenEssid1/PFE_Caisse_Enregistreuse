@@ -1,10 +1,51 @@
-.custom-card {
-    position: relative; /* Ensure positioning context for absolute positioning of dropdown */
-    height: 1000px; /* Set card height to cover the entire column */
-  }
 
-  .dropdown-menu-container {
-    position: absolute;
-    width: 100%; /* Make dropdown menu container full width */
-    z-index: 1000; /* Adjust z-index as needed */
-  }
+  
+.bold-center {
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1rem;
+}
+.center {
+  font-weight: bold;
+  vertical-align: middle;
+  font-size: 1rem;
+}
+
+
+
+
+
+  /* Style for the dropdown menu */
+/* Style for the dropdown menu */
+.dropdown-menu-container {
+  max-height: 150px;
+  /* Adjust the maximum height as needed */
+  /* Enable vertical scrolling */
+  scrollbar-width: thin;
+  /* Set scrollbar width */
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+  /* Set scrollbar color */
+}
+
+
+
+/* Track */
+.dropdown-menu-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  /* Set track background color */
+}
+
+/* Handle */
+.dropdown-menu-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  /* Set handle color */
+  border-radius: 5px;
+  /* Set handle border radius */
+}
+
+/* Handle on hover */
+.dropdown-menu-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+  /* Set handle color on hover */
+}

@@ -5,6 +5,20 @@ body {
   font-weight: 400;
   background: $theme-background;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  
+ //SEAA NLAWEJ
+}
+body::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+/* Customize scrollbar thumb */
+body::-webkit-scrollbar-thumb {
+  background-color: gray; /* Color of the thumb */
+  border-radius: 4px; /* Rounded corners */
 }
 
 * {
@@ -64,8 +78,8 @@ strong {
 }
 
 .img-radius {
-  box-shadow: 0 3px 11px 0 rgba(65, 76, 78, 0.2);
-  border-radius: 50%;
+  box-shadow: 0 3px 11px 0 rgb(255, 255, 255);
+  border-radius: 20%;
 }
 
 .page-header-title + .breadcrumb {
@@ -122,23 +136,29 @@ p.text-muted {
   border: none;
   margin-bottom: 30px;
   transition: all 0.5s ease-in-out;
+  
+ min-height: 90%;
+  
 
   .card-header {
-    background-color: transparent;
-    border-bottom: 1px solid #f1f1f1;
+    background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);
+    border-bottom: 3px solid #000000;
     // border-bottom: none;
     padding: 20px 25px;
     position: relative;
+    
+    
 
     + .card-block,
     + .card-body {
       // padding-top: 0;
+      
     }
 
     h5 {
       margin-bottom: 0;
-      color: #000;
-      font-size: 17px;
+      color: white;
+      font-size: 24px;
       font-weight: 400;
       display: inline-block;
       margin-right: 10px;
@@ -189,7 +209,7 @@ p.text-muted {
         border: none;
         background: transparent;
         box-shadow: none;
-        color: #888;
+        color: #000000;
 
         i {
           margin-right: 0;
@@ -216,7 +236,13 @@ p.text-muted {
   .card-block,
   .card-body {
     padding: 30px 25px;
+    
+
   }
+  /* CSS to make text bold and bigger */
+.card-body * {
+  
+}
 
   &.card-load {
     position: relative;

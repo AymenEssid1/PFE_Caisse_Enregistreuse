@@ -95,7 +95,8 @@ public class SoldProductServiceImpl implements SoldProductService {
             Optional<SoldProduct> soldProductWithSameName = soldProductRepository.findByNameAndCategoryEstablishment(updatedName, establishment);
             Optional<SoldProduct> soldProductWithSameRef = soldProductRepository.findByRefAndCategoryEstablishment(updatedRef, establishment);
 
-            if (soldProductWithSameName.isPresent() || soldProductWithSameRef.isPresent()) {
+            if ((soldProductWithSameName.isPresent() && !soldProductWithSameName.get().getId().equals(existingSoldProduct.getId())) ||
+                    (soldProductWithSameRef.isPresent() && !soldProductWithSameRef.get().getId().equals(existingSoldProduct.getId()))) {
                 throw new EntityExistsException("A sold product with this name or ref already exists in the given establishment");
             }
         }
@@ -189,5 +190,19 @@ public class SoldProductServiceImpl implements SoldProductService {
 
     public void deleteAllStockEquivalents() {
         stockEquivalentRepository.deleteAll();
+    }
+
+
+    @Override
+    public SoldProduct getById(Integer id) {
+        Optional<SoldProduct> soldProductOptional = soldProductRepository.findById(id);
+        return soldProductOptional.orElseThrow(()->new EntityNotFoundException());
+    }
+
+
+    @Override
+    public SoldProduct findByRef(String ref,Integer establishmentId) {
+        Optional<SoldProduct> soldProductOptional = soldProductRepository.findByRefAndCategoryEstablishmentId(ref,establishmentId);
+        return soldProductOptional.orElseThrow(()->new EntityNotFoundException());
     }
 }

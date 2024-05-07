@@ -1,11 +1,16 @@
 package com.PFE.stock.controllers.done;
 
 
+import com.PFE.stock.entities.Category;
+import com.PFE.stock.entities.Combo;
 import com.PFE.stock.entities.Establishment;
+import com.PFE.stock.entities.Tables;
 import com.PFE.stock.entities.image.FileLocationService;
 import com.PFE.stock.entities.image.IFileLocationService;
 import com.PFE.stock.entities.image.Image;
 import com.PFE.stock.repos.EstablishmentRepository;
+import com.PFE.stock.services.Exceptions.DuplicateComboException;
+import com.PFE.stock.services.interfaces.TablesService;
 import com.PFE.stock.services.interfaces.done.EstablishmentService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 //@CrossOrigin(origins = "*")
 @RestController
@@ -36,6 +42,23 @@ public class EstablishmentController {
     }
     @Autowired
     private EstablishmentRepository establishmentRepository;
+
+    @PostMapping ("/{OriginalestabId}/transfer-data")
+    public ResponseEntity<Object> transferDataBetweenEstablishments(
+            @PathVariable("OriginalestabId") Integer establishmentId,
+            @RequestParam("targetEstablishmentId") Integer targetEstablishmentId) {
+        try {
+            establishmentService.TransferData(establishmentId, targetEstablishmentId);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 
     @PutMapping(value="/update-image/{estabId}",consumes = "multipart/form-data")
     public ResponseEntity<Establishment> updateImage(@PathVariable("estabId") Integer id, @RequestParam("image") MultipartFile file) {
@@ -140,4 +163,47 @@ public class EstablishmentController {
     public ResponseEntity<List<Establishment>> getAllEstablishments() {
         return ResponseEntity.status(HttpStatus.OK).body(establishmentService.getAllEstablishments());
     }
+
+
+
+
+    @Autowired
+    private TablesService tablesService;
+
+    @PostMapping("/create-table")
+    public ResponseEntity<Object> createTable(@RequestBody Tables table) {
+        Tables tabless=tablesService.createTable(table);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tabless);
+    }
+
+
+    @DeleteMapping("/deleteTable/{tableId}")
+    public ResponseEntity<Void> deleteTable(@PathVariable("tableId") Integer tableId) {
+        tablesService.deleteTable(tableId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/adjust-status/{tableId}/")
+    public ResponseEntity<Object> adjustTableStatus(@PathVariable("tableId") Integer tableId, @RequestParam("newStatus") Boolean newStatus) {
+        Tables updatedTable = tablesService.adjustTableStatus(tableId, newStatus);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedTable);
+
+    }
+
+    @PutMapping("/edit-name/{tableId}")
+    public ResponseEntity<Object> editTableName(@PathVariable("tableId") Integer tableId, @RequestParam("newName") String newName) {
+        Tables updatedTable = tablesService.editTableName(tableId, newName);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedTable);
+    }
+
+    @GetMapping("/{establishmentId}/tables")
+    public ResponseEntity<List<Tables>> getTablesByEstablishmentId(@PathVariable("establishmentId") Integer establishmentId) {
+        try {
+            List<Tables> tables = tablesService.getTablesByEstablishmentId(establishmentId);
+            return ResponseEntity.ok(tables);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

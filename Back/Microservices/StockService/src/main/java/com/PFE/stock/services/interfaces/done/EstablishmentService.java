@@ -10,4 +10,5 @@ public interface EstablishmentService {
     void deleteEstablishment(Integer establishmentId);
     Establishment getById(Integer establishmentId);
     List<Establishment> getAllEstablishments();
+    void TransferData(Integer establishmentId, Integer targetEstablishmentId);
 }

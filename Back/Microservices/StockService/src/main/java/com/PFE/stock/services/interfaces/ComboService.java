@@ -12,4 +12,7 @@ public interface ComboService {
     Combo getComboById(Integer id) throws ComboNotFoundException;
     List<Combo> getAllCombosByEstablishmentId(Integer establishmentId);
     public void deleteCombo(Integer comboId) throws ComboNotFoundException;;
+
+    Combo findComboByRefAndEstablishmentId(String ref, Integer establishmentId) ;
+
 }

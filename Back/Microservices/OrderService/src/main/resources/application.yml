@@ -9,11 +9,18 @@ spring:
     username: aymen
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
     show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${keycloak.domain}/realms/${keycloak.realm}
+
+
   kafka:
 
     acks: -1
@@ -36,6 +43,19 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     enabled: true
-logging:
-  level:
-    root=DEBUG:
+
+keycloak:
+
+  realm: PFE
+  domain: localhost:8888
+  adminClientId: admin-cli
+  adminClientSecret: dUQPvo7bfrcVpRd3b3QHt1u0YH7szUdl
+  client: pfeclient
+  use-resource-role-mappings: false
+  urls:
+    auth: http://${keycloak.domain}
+
+jwt:
+  auth:
+    converter:
+      resource-id: pfeclient

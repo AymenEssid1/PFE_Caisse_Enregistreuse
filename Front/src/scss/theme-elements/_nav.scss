@@ -27,6 +27,9 @@
   .nav-link {
     border: none;
     color: $theme-font-color;
+    background-color: rgb(225, 225, 225);
+
+
     &:hover {
       color: $primary-color;
     }
@@ -41,6 +44,7 @@
     border: none;
     color: $theme-heading-color;
     box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, 0.05);
+    background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);
   }
 }
 //

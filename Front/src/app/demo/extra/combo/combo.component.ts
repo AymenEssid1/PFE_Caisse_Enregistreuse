@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ComboService } from './comboService';
 import { Establishment } from '../establishments/Service/establishment.model';
 import { Combo } from '../Stock/service/models';
+import { NotificationService } from '../notificationService';
 
 @Component({
   selector: 'app-combo',
@@ -19,7 +20,7 @@ export class ComboComponent {
 
 
 
-  constructor(private establishmentService: EstablishmentService, private router: Router, private comboService:ComboService) { }
+  constructor(private notificationService:NotificationService,private establishmentService: EstablishmentService, private router: Router, private comboService:ComboService) { }
   ngOnInit() {
 
 
@@ -58,11 +59,54 @@ export class ComboComponent {
   }
 
 
+
+
+  currentCombos: any[] = []; // Sold products for the current page
+  currentPage: number = 1;
+  combosPerPage: number = 3;
+  totalPages: number;
+  totalPagesArray: number[] = [];
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.setPage(this.currentPage - 1);
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.setPage(this.currentPage + 1);
+    }
+  }
+
+  goToPage(page: number) {
+    this.setPage(page);
+  }
+
+  setPage(page: number) {
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.combosPerPage;
+    const endIndex = Math.min(startIndex + this.combosPerPage, this.combos.length);
+    this.currentCombos = this.combos.slice(startIndex, endIndex);
+  }
+
+
+
+
   fetchCombos(id: number) {
 
     console.log(id);
 
-    this.comboService.getAllCombosByEstablishmentId(id).subscribe((data) => { this.combos = data; this.selectedEstablishment = this.establishments.find(establishment => establishment.id === id); }
+    this.comboService.getAllCombosByEstablishmentId(id).subscribe((data) => { this.combos = data; this.selectedEstablishment = this.establishments.find(establishment => establishment.id === id);
+      this.totalPages = Math.ceil(this.combos.length / this.combosPerPage);
+      this.totalPagesArray = []
+      // Populate totalPagesArray
+      for (let i = 1; i <= this.totalPages; i++) {
+        this.totalPagesArray.push(i);
+      }
+      // Set currentSoldProducts for the initial page
+      this.setPage(1);
+}
       , (error) => { console.log('error fetching stock products', error); })
   }
 
@@ -82,9 +126,10 @@ export class ComboComponent {
   this.comboService.deleteCombo(id).subscribe(
     () => { console.log("stock product deleted"+ id);
       this.load(estabid);
+      this.notificationService.showInfo('','combo supprimé')
     },
     (error) => {
-      console.error('Error deleting stock product', error);
+      console.error('Error ', error);
     }
   );
  }
@@ -94,6 +139,16 @@ export class ComboComponent {
   this.fetchCombos(id);
     
   }
+  searchText: string = '';
 
+  searchByName(): void {
+    if (!this.searchText.trim()) {
+      this.currentCombos = this.combos;
+    } else {
+      this.currentCombos = this.combos.filter(product =>
+        product.name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
+  }
 
 }

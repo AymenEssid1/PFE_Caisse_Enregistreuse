@@ -38,6 +38,22 @@ public class Establishment {
     @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories;
 
-    // TODO: 12/02/2024  parameters such as  private Bool Tips;
+
+
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tables> tables;
+
+
+
+
+    private boolean tableSystem;
+
+    private boolean tippingSystem;
+
+    private boolean fidelitySystem;
+
+    private float fidelityRatio;
+
+
 
 }

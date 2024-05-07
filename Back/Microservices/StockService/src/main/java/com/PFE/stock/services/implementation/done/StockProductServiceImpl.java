@@ -61,6 +61,7 @@ public class StockProductServiceImpl implements StockProductService {
         existingStockProduct.setName(updatedStockProduct.getName());
         existingStockProduct.setRefstock(updatedStockProduct.getRefstock());
         existingStockProduct.setQuantity(updatedStockProduct.getQuantity());
+        existingStockProduct.setUnit(updatedStockProduct.getUnit());
         // Update other fields as needed
         return stockProductRepository.save(existingStockProduct);
     }

@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Combo" >
+        <div class="custom-card">
+
+
+
+        
+
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Ref</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let soldProduct of soldProducts">
+                    <td>{{ soldProduct.ref }}</td>
+                    <td>{{ soldProduct.name }}</td>
+                    <td>{{ soldProduct.price }}</td>
+                    <td>{{ soldProduct.category.categoryName }}</td>
+                    <td>
+                        <input type="checkbox" [checked]="selectedSoldProductIds.includes(soldProduct.id)" (change)="toggleSoldProductSelection(soldProduct.id)">
+                      </td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+
+
+
+        </div>
+
+
+        
+        
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Ref</th>
+                <th>Name</th>
+                <th>Price</th>
+                
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let combo of combos">
+                <td>{{ combo.ref }}</td>
+                <td>{{ combo.name }}</td>
+                <td>{{ combo.price }}</td>
+                
+                <td>
+                    <input type="checkbox" [checked]="selectedCombosIds.includes(combo.id)" (change)="toggleComboSelection(combo.id)">
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+
+
+
+          
+          <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+              <label for="percentage">Percentage:</label>
+              <input type="number" formControlName="percentage" class="form-control" id="percentage" placeholder="Enter percentage">
+            </div>
+            <div class="form-group">
+              <label for="discountType">Discount Type:</label>
+              <select formControlName="discountType" class="form-control" id="discountType">
+                <option *ngFor="let type of discountTypes" [value]="type">{{ type }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="buyX">Buy X:</label>
+              <input type="number" formControlName="buyX" class="form-control" id="buyX" placeholder="Quantité à acheter">
+            </div>
+            <div class="form-group">
+              <label for="getY">Get Y:</label>
+              <input type="number" formControlName="getY" class="form-control" id="getY" placeholder="Quantité offerte">
+            </div>
+            <div class="form-group">
+              <label for="startTime">Start Time:</label>
+              <input type="datetime-local" formControlName="startTime" class="form-control" id="startTime">
+            </div>
+            <div class="form-group">
+              <label for="endTime">End Time:</label>
+              <input type="datetime-local" formControlName="endTime" class="form-control" id="endTime">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+      </app-card>
+
+
+    
+
+
+
+      
+</div>     
+

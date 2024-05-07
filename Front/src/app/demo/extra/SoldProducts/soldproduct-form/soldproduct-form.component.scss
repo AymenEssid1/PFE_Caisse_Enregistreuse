@@ -11,9 +11,24 @@
     overflow-y: auto;
     padding-right: 8px; /* Add space between tables */
   }
+
+  .table-container::-webkit-scrollbar {
+    width: 5px; /* Adjust scrollbar width */
+  }
+
+
+  /* Customize scrollbar thumb */
+  .table-container::-webkit-scrollbar-thumb {
+    
+    background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);;
+    border-radius: 4px; /* Rounded corners */
+  }
+
+  
   
   .custom-table {
     width: 100%;
+    
   }
   
   .custom-table thead {
@@ -22,6 +37,7 @@
     background-color: #ffffff; /* Optional: Add background color to distinguish the table header */
     z-index: 1; /* Ensure the header is above other content */
   }
+ 
   
   .add-category-row {
     display: flex;
@@ -31,5 +47,46 @@
     position: sticky;
     bottom: 0;
     background-color: #ffffff; /* Optional: Add background color to distinguish the input row */
+  }
+  .white-input {
+    background-color: white;
+  }
+  .white-input:disabled {
+    background-color: #f0f0f0; /* Adjust the shade of gray as needed */
+  }
+
+
+
+  
+  
+  .image-placeholder {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-right: 10px;
+    text-align: center;
+  }
+
+
+  .image-upload-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Add some space between elements */
+  }
+  
+  .image-preview {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .image-preview img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .form-group {
+    margin-bottom: 20px; /* Adjust as needed */
   }
   

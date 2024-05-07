@@ -33,14 +33,14 @@ const NavigationItems = [
         title: 'Dashboard',
         type: 'item',
         url: '/admin/dashboard', // Add /admin before every URL
-        icon: 'icon-bar-chart',
+        icon: 'fa-solid fa-chart-line',
         classes: 'nav-item',
       },
       {
         id: 'establishments',
         title: 'Points de vente',
         type: 'item',
-        icon: 'feather icon-home',
+        icon: 'fa-solid fa-shop',
         classes: 'nav-item',
         url: '/admin/establishments'
 
@@ -67,14 +67,14 @@ const NavigationItems = [
         title: 'Caissiers',
         type: 'item',
         url: '/admin/caissiers', // Add /admin before every URL
-        icon: 'icon-users',
+        icon: 'fa-solid fa-users-gear',
         classes: 'nav-item',
       }, {
         id: 'stock',
         title: 'Stock',
         type: 'item',
         url: '/admin/stock',
-        icon: ' feather icon-package',
+        icon: 'fa-solid fa-warehouse',
         classes: 'nav-item',
 
 
@@ -88,7 +88,7 @@ const NavigationItems = [
         title: 'Produits Vendus',
         type: 'item',
         url: '/admin/sold', // Add /admin before every URL
-        icon: 'icon-shopping-cart',
+        icon: 'fa-solid fa-basket-shopping',
         classes: 'nav-item',
       }, 
       {
@@ -96,15 +96,23 @@ const NavigationItems = [
         title: 'Combos',
         type: 'item',
         url: '/admin/combo', // Add /admin before every URL
-        icon: 'feather icon-box',
+        icon: 'fa-solid fa-boxes-stacked',
         classes: 'nav-item',
       },
       {
         id: 'promotions',
         title: 'Promotions',
         type: 'item',
-        url: '/admin/discounts', // Add /admin before every URL
-        icon: 'icon-tag',
+        url: '/admin/discount', // Add /admin before every URL
+        icon: 'fa-solid fa-tag',
+        classes: 'nav-item',
+      },
+      {
+        id: 'pos',
+        title: 'POS',
+        type: 'item',
+        url: '/admin/pos', // Add /admin before every URL
+        icon: 'fa-solid fa-cash-register',
         classes: 'nav-item',
       },
 

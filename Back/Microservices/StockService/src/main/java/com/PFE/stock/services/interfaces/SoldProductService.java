@@ -21,5 +21,12 @@ public interface SoldProductService {
     void deleteStockEquivalentById(Integer id);
 
     void deleteAllStockEquivalents();
+
+    SoldProduct getById(Integer id);
+
+
+    SoldProduct findByRef(String ref,Integer establishmentId);
+
+
 }
 

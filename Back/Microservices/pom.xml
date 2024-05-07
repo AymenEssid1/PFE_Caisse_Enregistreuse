@@ -12,7 +12,8 @@
 		<module>OrderService</module>
         <module>eureka-server</module>
 		<module>API-Gateway</module>
-	</modules>
+        <module>PaymentService</module>
+    </modules>
 
 
 	<name>MicroservicesByAymen</name>
