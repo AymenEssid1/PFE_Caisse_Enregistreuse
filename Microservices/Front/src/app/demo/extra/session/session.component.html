@@ -1,0 +1,53 @@
+<div class="custom-tabs">
+
+
+  <ul class="tab-list" style="margin-bottom:0px;">
+    <li [class.active]="selectedTab === 'open'" (click)="selectTab('open')"> Sessions ouvertes</li>
+    <li [class.active]="selectedTab === 'closed'" (click)="selectTab('closed')">Sessions fermées</li>
+  </ul>
+  <div class="tab-content">
+    <div *ngIf="selectedTab === 'open'">
+
+
+      <button type="button" class="btn btn-success" (click)="createSession() ">
+        <i class="fa-solid fa-plus" style="color: #ffffff;"></i>Ouvrir une Session
+    </button>
+
+      <div class="session-cards">
+        <div *ngFor="let session of openSessions" class="session-card">
+          <div (click)="selectSession(session)">
+            <p> Date d'ouverture : {{ session.startTime | date: 'medium' }}</p>
+            <h5>Caissier : {{ session.cashierUsername }}</h5>
+            <p *ngIf="session.status">État: Ouverte</p>
+
+            <p>Fond de caisse: {{ session.startMoney }}</p>
+            <p>Somme attendue: {{ session.expectedMoney }}</p>
+            <p *ngIf="!session.status">Date de fermeture: {{ session.closeTime | date: 'medium' }}</p>
+          </div>
+
+          <button type="button" style="border: none; border-radius:5px; " (click)="closeSession(session.id,session.expectedMoney)" *ngIf="session.status">Clôturer
+            la session</button>
+
+
+           
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedTab === 'closed'">
+      <div class="session-cards">
+        <div *ngFor="let session of closedSessions" class="session-card"
+          [ngClass]="{'red-background': session.issue !== 'NOISSUE'}">
+          <p> Date d'ouverture : {{ session.startTime | date: 'medium' }}</p>
+          <p *ngIf="!session.status">Close Time: {{ session.closeTime | date: 'medium' }}</p>
+          <h5>Cashier : {{ session.cashierUsername }}</h5>
+          <p *ngIf="!session.status">État: Fermée</p>
+          <p>Fond de caisse: {{ session.startMoney }}</p>
+          <p>Expected Money: {{ session.expectedMoney }}</p>
+          <p>problème: {{ session.issue }}</p>
+          <p *ngIf="session.note">Note: {{ session.note }}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

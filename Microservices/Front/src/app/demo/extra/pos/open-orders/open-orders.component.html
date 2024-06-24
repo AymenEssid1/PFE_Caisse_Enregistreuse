@@ -1,0 +1,21 @@
+<app-card cardTitle="Commandes ouvertes">
+    <div class="orders-container">
+      <div *ngIf="notPaidOrders.length > 0; else noOrdersTemplate">
+        <div *ngFor="let order of notPaidOrders" class="order-item">
+          <div class="order-details">
+            <div class="order-price">Total: {{ order.totalPrice }} DT </div>
+            <div class="order-date">Date de création : {{ order.createdAt | date:'short' }}</div>
+            <div class="order-status">Status: {{ order.paymentStatus ? 'payée?' : 'En attente' }}</div>
+            <div class="table-id">Table: {{ getTableName(order.tableId) }}</div>
+          </div>
+          <button class="payment-button" (click)="handlePayment(order)">Paiement</button>
+        </div>
+      </div>
+      <ng-template #noOrdersTemplate>
+        <div class="no-orders-message">
+          <h2>Aucune commande ouverte</h2>
+        </div>
+      </ng-template>
+    </div>
+  </app-card>
+  

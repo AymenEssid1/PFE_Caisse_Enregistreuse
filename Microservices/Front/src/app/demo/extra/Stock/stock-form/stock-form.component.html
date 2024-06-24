@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="custom-card">
+      <app-card cardTitle="Produit de stock">
+
+        <!-- <div *ngIf="conflictErrorMessage" class="text-danger">{{ conflictErrorMessage }}</div> -->
+
+        <form [formGroup]="stockProductForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Réference du produit</label>
+            <input type="text" class="form-control" formControlName="refstock" id="refstock"
+              placeholder="Réference du produit">
+            <!-- Error message for refstock -->
+            <div
+              *ngIf="stockProductForm.get('refstock').invalid && (stockProductForm.get('refstock').dirty || stockProductForm.get('refstock').touched)">
+              <div class="text-danger" *ngIf="stockProductForm.get('refstock').hasError('required')">{{ getRefstockErrorMessage() }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Nom du Produit</label>
+            <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nom du Produit">
+            <!-- Error message for name -->
+            <div
+              *ngIf="stockProductForm.get('name').invalid && (stockProductForm.get('name').dirty || stockProductForm.get('name').touched)">
+              <div class="text-danger" *ngIf="stockProductForm.get('name').hasError('required')">{{ getNameErrorMessage() }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Quantité</label>
+            <input type="number" step="any" class="form-control" formControlName="quantity" id="quantity"
+              placeholder="Quantité">
+            <div
+              *ngIf="stockProductForm.get('quantity').invalid && (stockProductForm.get('quantity').dirty || stockProductForm.get('quantity').touched)">
+              <div class="text-danger"
+                *ngIf="stockProductForm.get('quantity').hasError('required') || stockProductForm.get('quantity').hasError('min')">
+                {{ getQuantityErrorMessage() }}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="name">Quantité minimale</label>
+            <input type="number" step="any" class="form-control" formControlName="lowStockAlert" id="lowStockAlert"
+              placeholder="Cette quantité déclenche l'alerte de stock ">
+            <div
+              *ngIf="stockProductForm.get('lowStockAlert').invalid && (stockProductForm.get('lowStockAlert').dirty || stockProductForm.get('lowStockAlert').touched)">
+              <div class="text-danger"
+                *ngIf="stockProductForm.get('lowStockAlert').hasError('required') || stockProductForm.get('lowStockAlert').hasError('min')">
+                {{ getQuantityErrorMessage() }}</div>
+            </div>
+          </div>
+        
+          <div class="form-group">
+            <label for="unit">Unité</label>
+            <select class="form-control" formControlName="unit">
+              <option value="" disabled selected>Sélectionner une unité</option>
+              <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+            </select>
+            <!-- Error message for unit -->
+            <div
+              *ngIf="stockProductForm.get('unit').invalid && (stockProductForm.get('unit').dirty || stockProductForm.get('unit').touched)">
+              <div class="text-danger" *ngIf="stockProductForm.get('unit').hasError('required')">{{ getUnitErrorMessage() }}</div>
+            </div>
+          </div>
+        
+        
+          <button type="submit" class="btn btn-primary">Confirmer</button>
+        </form>
+        
+      </app-card>
+    </div>
+  </div>
+</div>

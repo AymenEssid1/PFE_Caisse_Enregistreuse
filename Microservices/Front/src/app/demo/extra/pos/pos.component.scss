@@ -1,0 +1,483 @@
+/* Style for the dropdown menu */
+/* Style for the dropdown menu */
+.dropdown-menu-container {
+    max-height: 150px;
+    /* Adjust the maximum height as needed */
+    /* Enable vertical scrolling */
+    scrollbar-width: thin;
+    /* Set scrollbar width */
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+    /* Set scrollbar color */
+}
+
+
+
+/* Track */
+.dropdown-menu-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    /* Set track background color */
+}
+
+/* Handle */
+.dropdown-menu-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    /* Set handle color */
+    border-radius: 5px;
+    /* Set handle border radius */
+}
+
+/* Handle on hover */
+.dropdown-menu-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+    /* Set handle color on hover */
+}
+
+
+.BigContainer {
+    display: flex;
+    height: 91vh;
+    background-color: #f0f0f0;
+
+
+
+
+
+}
+
+/* Style for the left div */
+.left-div {
+
+    width: 30%;
+    /* Take 30% of the width */
+    display: flex;
+    flex-direction: column;
+
+
+    .top-div {
+
+        display: flex;
+        flex: 50%;
+        flex-direction: column;
+        max-height: 40%;
+
+        /* Ensure the gradient covers the entire border */
+        border-radius: 20px;
+
+
+        .itemss {
+            flex: 95%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+            background-color: #f4f7fa;
+            padding: 10px;
+
+
+        }
+
+        .total-div {
+            flex: 1;
+            padding: 5px;
+            background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);
+            color: #f0f0f0;
+            font-size: 1.2rem;
+            font-weight: bolder;
+            flex: 5%;
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 10px;
+        }
+    }
+
+    .bottom-div {
+        max-height: 60%;
+        display: flex;
+        flex-direction: column;
+        flex: 50%;
+        background-color: #f0f0f0;
+
+
+        /* Style for the top div within bob-div */
+
+        .bob-top-div {
+            flex: 15%;
+            display: flex;
+            /* Use flexbox */
+            
+            /* Distribute space evenly between buttons */
+            height: 100%;
+
+            /* Make sure the buttons fill the entire height */
+
+
+        }
+
+        /* Style for the bottom div within bob-div */
+        .bob-bottom-div {
+            flex: 85%;
+
+            background-color: lightyellow;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+
+            .calculator-div {
+                padding: 5px;
+                min-width: 70%;
+                max-width: 70%;
+                max-height: 100%;
+                background-color: rgb(255, 255, 255);
+
+
+
+
+                /* Style for the calculator */
+                .calculator {
+
+                    width: 100%;
+                    min-height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    /* Align rows vertically */
+
+
+
+
+                    /* Style for each row of buttons */
+                    .row2 {
+                        display: flex;
+                        min-height: 25%;
+                        background-color: #ffffff;
+                        justify-content: space-between
+
+                    }
+
+                    /* Style for the buttons */
+                    .calc-button {
+                        width: calc(33.33%);
+                       height: calc(25%);
+                        padding: 20px;
+                        font-size: 1.5em;
+                        border: none;
+                        border-radius: 2px;
+                        margin: 3px;
+                        /* Remove border */
+                       // background-color: transparent;
+                        /* Transparent background */
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                        /* Add transition effect */
+                        outline: none;
+                        /* Remove button outline */
+                    }
+
+                    /* Style for the buttons on hover */
+                    .calc-button:hover {
+                        background-color: #1de9b6;
+                        /* Light background color on hover */
+                    }
+
+                    /* Style for the delete-left button */
+                    .calc-button:last-child:nth-child(2) {
+                        width: calc(70%);
+                        /* Set width to cover two button spaces */
+                    }
+
+                    /* Optional: Style for the icons inside the buttons */
+                    .calc-button i {
+                        font-size: 1.2em;
+                        /* Adjust icon size */
+                    }
+                }
+            }
+
+            .pay-div {
+                width: 30%;
+                background: #1de9b6;
+                display: flex;
+                flex-direction: column;
+
+                .pay-button {
+                    background: none;
+                    padding: 0;
+                    cursor: pointer;
+                    width: 100%;
+                    height: 100%;
+
+                    /* Add a border */
+                    background-color: transparent;
+                    /* Transparent background */
+
+
+                }
+
+                .pay-button i {
+                    font-size: 24px;
+                    /* Adjust the font size as needed */
+                }
+
+                .open-order-button {
+                    background: none;
+                    padding: 0;
+                    cursor: pointer;
+                    width: 100%;
+                    height: 100%;
+
+                    /* Add a border */
+                    background-color: transparent;
+                    /* Transparent background */
+
+
+                }
+
+                .open-order-button i {
+                    font-size: 15px;
+                }
+
+
+            }
+
+        }
+    }
+}
+
+.button {
+    flex: 1;
+    border: none;
+
+    background-color: #68D2E8;
+    color: white;
+    font-size: 16px;
+    border-width: 2px;
+    border-radius: 10px;
+    margin-left: 1px;
+    margin-right: 1px;
+
+
+}
+
+.button:hover {
+    background-color: #17a2b8;
+}
+
+
+
+/* Optional: Remove default button styles */
+.button::-moz-focus-inner {
+    border: 0;
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.right-div {
+    flex: 70%;
+    /* Take remaining space */
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    
+
+    .top-section {
+        flex: 10%;
+        /* Take 20% of the height */
+        background-color: rgb(247, 247, 247);
+        padding: 20px;
+    }
+
+    /* Style for the bottom section */
+    .bottom-section {
+        flex: 90%;
+        /* Take remaining space */
+        background-color: rgb(247, 247, 247);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        /* Set scrollbar width */
+        scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+        /* Set scrollbar color */
+        padding: 5px;
+    }
+
+    .bottom-section::-webkit-scrollbar {
+        width: 8px;
+        /* Width of the scrollbar */
+    }
+}
+
+.selectiondiv {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .top-part {
+        flex-grow: 1;
+        display: flex;
+        
+        gap: 40%;
+    }
+
+    .bottom-part {
+        display: flex;
+        align-items: center;
+        /* Align items vertically */
+    }
+}
+
+.searchdiv {
+    flex-grow: 1;
+    margin-right: 10px;
+    /* Margin between search input and dropdown */
+}
+
+
+////////CARD/////////
+
+.card {
+    height: 100%; // Ensure cards take up full height
+    border-radius: 10px; // Add border radius to cards
+    overflow: hidden; // Hide overflowing content in cards
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Add a subtle shadow to cards
+    margin-bottom: 40px;
+
+}
+
+.card-img-top {
+    object-fit: cover; // Ensure images fill the card container
+    height: 200px; // Set a fixed height for the images
+}
+
+.card-body {
+    padding: 15px; // Add padding to the card body
+}
+
+.card-body2 {
+    padding: 15px; // Add padding to the card body
+
+    display: flex;
+    justify-content: space-between;
+    /* Align items with space between */
+}
+
+/* Style for the delete button */
+/* Style for the trash icon */
+.feather.icon-trash {
+    color: red;
+    /* Set the color of the icon to red */
+}
+
+/* Hide the button border */
+.delete-item-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Optional: Add hover effect */
+.delete-item-button:hover .feather.icon-trash {
+    color: darkred;
+    /* Change the color on hover */
+}
+
+
+.card-title {
+    font-size: 1.2rem; // Increase font size of card title
+    margin-bottom: 10px; // Add margin below card title
+    font-weight: bolder;
+    color: black;
+}
+
+.card-text {
+    font-size: 1rem; // Set font size for card text
+}
+
+
+
+
+//////// ITEM CARD////////////
+/// 
+
+
+
+
+.card2 {
+    width: 100%;
+    /* Set the width of the card */
+    border: 1px solid #ccc;
+    /* Add border for better appearance */
+    border-radius: 8px;
+    /* Add border radius for rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Add box shadow for depth */
+    transition: box-shadow 0.3s ease;
+    /* Add transition for smooth effect */
+    background-color: white;
+    margin-bottom: 3px;
+
+
+    &:hover {
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        /* Change box shadow on hover */
+    }
+
+    .card-body {
+        padding: 8px;
+        /* Add padding inside the card */
+    }
+
+    .card-title {
+        font-size: 16px;
+        /* Set font size for card title */
+        margin-bottom: 5px;
+        /* Add margin bottom to separate title from content */
+    }
+
+    .card-text {
+        font-size: 13px;
+        /* Set font size for card text */
+        color: #666;
+        /* Set text color */
+    }
+}
+
+
+
+
+.grayed-out {
+    filter: grayscale(100%);
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Ensure the grayed-out class is applied to the card and its children */
+.card.grayed-out .card-img-top {
+    opacity: 0.5;
+}
+
+.card.grayed-out .card-body {
+    opacity: 0.5;
+}

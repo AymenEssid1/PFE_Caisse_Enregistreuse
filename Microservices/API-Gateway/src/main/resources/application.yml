@@ -1,0 +1,29 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+keycloak:
+
+  realm: PFE
+  domain: keycloak:8080
+  adminClientId: admin-cli
+  #adminClientSecret: dUQPvo7bfrcVpRd3b3QHt1u0YH7szUdl
+  adminClientSecret: joKgYKLaCtyZIa6TTrDUgHmUDhquN0g2
+
+  client: pfeclient
+  use-resource-role-mappings: false
+  urls:
+    auth: http://${keycloak.domain}

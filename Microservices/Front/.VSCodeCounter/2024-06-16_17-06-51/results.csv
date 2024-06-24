@@ -1,0 +1,11 @@
+"filename", "language", "TypeScript", "SCSS", "HTML", "comment", "blank", "total"
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\itemService.ts", "TypeScript", 58, 0, 0, 3, 26, 87
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.html", "HTML", 0, 0, 20, 0, 1, 21
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.scss", "SCSS", 0, 54, 0, 0, 11, 65
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.spec.ts", "TypeScript", 18, 0, 0, 0, 6, 24
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.ts", "TypeScript", 60, 0, 0, 0, 11, 71
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.html", "HTML", 0, 0, 150, 23, 27, 200
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.scss", "SCSS", 0, 278, 0, 73, 133, 484
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.spec.ts", "TypeScript", 18, 0, 0, 0, 6, 24
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.ts", "TypeScript", 596, 0, 0, 94, 183, 873
+"Total", "-", 750, 332, 170, 193, 404, 1849

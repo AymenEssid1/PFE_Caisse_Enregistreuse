@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Produit de stock">
+            <div class="custom-card">
+
+
+
+
+
+                <button type="button" class="btn btn-success" (click)="onAdd(selectedEstablishment.id)">
+                    <i class="fa-solid fa-plus" style="color: #ffffff;"></i>Ajouter
+                </button>
+                <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;" id="selectestab" *ngIf="accessVar === 'admin'">
+                    <button class="btn btn-outline-primary" ngbDropdownToggle type="button">
+                        Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
+                    </button>
+                    <div class="dropdown-menu-container" style="max-height: 150px; overflow-y: auto;width:100%;"
+                        ngbDropdownMenu>
+                        <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:"
+                            (click)="fetchDiscounts(establishment.id)">
+                            {{ establishment.name }}
+                        </a>
+                    </div>
+                </div>
+                
+
+
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="bold" style="color: rgb(3, 115, 135);">Pourcentage</th>
+                            <th class="bold" style="color: rgb(3, 115, 135);">Type</th>
+                            <th class="bold" style="color: rgb(3, 115, 135);">X achetés, Y offerts</th>
+                            <th class="bold" style="color: rgb(3, 115, 135);">Dates de début et fin</th>
+                            <th class="bold" style="color: rgb(3, 115, 135);">Produits</th>
+                            <th class="bold" style="color: rgb(3, 115, 135);">Combos</th>
+                            <th class="bold" style="color: rgb(3, 115, 135);">Actions</th>
+
+                        </tr>
+
+
+                    </thead>
+                    <tbody>
+                        <!-- Add this code inside the <tbody> tag -->
+                        <tr *ngFor="let discount of discounts">
+                            <td class="bold-center">{{ discount.percentage }}</td>
+                            <td class="bold">{{ discount.discountType }}</td>
+                            <td class="bold">
+                                <ng-container *ngIf="discount.discountType == 'BUY_X_GET_Y'">
+                                    <ul>
+                                        <li>{{ discount.buyX }} + {{ discount.getY }}</li>
+                                    </ul>
+                                </ng-container>
+                                <ng-container *ngIf="discount.discountType !== 'BUY_X_GET_Y'">
+                                    <ul>
+                                        <li> N/A</li>
+                                    </ul>
+                                </ng-container>
+                            </td>
+                            <td>
+
+                                <ul>
+                                    <li>{{ formatDate(discount.startTime) }}</li>
+                                    <li>{{ formatDate(discount.endTime) }}</li>
+                                </ul>
+
+
+                            </td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let product of discount.soldProducts">{{ product.name }}</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let combo of discount.combos">{{ combo.name }}</li>
+                                </ul>
+                            </td>
+                            <td>
+
+                                <button (click)="onEdit(selectedEstablishment.id,discount.id)" type="button"
+                                    class="btn btn-icon btn-outline-success">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                                <button (click)="onDelete(discount.id)" type="button"
+                                    class="btn btn-icon btn-outline-danger">
+                                    <i class="feather icon-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </app-card>
+    </div>
+</div>

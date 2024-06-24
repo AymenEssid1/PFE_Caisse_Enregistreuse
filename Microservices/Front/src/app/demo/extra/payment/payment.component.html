@@ -1,0 +1,77 @@
+<app-card cardTitle="Paiement" style="max-height:200px ;">
+    <button class="pos-button" (click)="navigateToPos()">Go to POS</button>
+
+    <div class="payment-container">
+
+
+        <!-- Item List -->
+        <div class="big-receipt">
+
+            <div class="receipt">
+                <div >
+                    <h3>Commande N° {{this.savedOrder.id}}</h3>
+                </div>
+                <div class="item-details">
+                    <div  *ngFor="let item of savedOrder.items">
+                        
+                        <div class="item" >
+                            <span class="item-name">{{ item.name }}</span>
+                            <div class="quant-div">
+
+                                <span class="item-quantity">          Qt: {{ item.quantity }}</span>
+                                <span class="item-quantity">  Prix:{{ item.price }} DT</span>
+                            </div>
+                           
+                        </div>
+                        <hr>
+                    </div>
+
+                </div>
+                
+                <div class="total-div">
+                    <h5 class="total">Prix Total : {{ priceToPay }} DT </h5>
+                    <h5 class="fidelity-points" [hidden]="!fidelityOrNo">Points de fidélité obtenues : {{ pointsAcquired}} pts</h5>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="right-div">
+
+            <div style="display: flex;" >
+
+                <button class="pay-button" (click)="promptCashPayment()">Paiement Cash <i
+                    class="fa-solid fa-money-bills"></i></button>
+            <button class="pay-button" (click)="payByCard()">Paiement par Carte bancaire <i
+                    class="fa-regular fa-credit-card"></i></button>
+            </div>
+
+
+
+            <div style="display: flex;  justify-content: center; flex-direction:column ">
+
+                <button class="user-button" (click)="openModal()">
+                    {{ client ? 'Modifier Client' : 'Ajouter Client' }} <i class="fa-solid fa-user-tag"></i>
+                </button>
+                <div *ngIf="client" class="client-info">
+                    <h5>Client </h5>
+                    <p> {{ client.firstname }} {{ client.lastname }}</p>
+                    <p> {{ client.email }}</p>
+                    <p [hidden]="!client"> Points de fidelité {{ client.fidelityPoints }} =
+                        {{client.fidelityPoints*equivalent}} DT</p>
+                    <button class="fidelity-button" [hidden]="!client" [hidden]="!fidelityOrNo"
+                        (click)="cashOut()">Encaisser Pts de
+                        fidélité</button>
+                </div>
+            </div>
+
+           
+            
+           
+
+        </div>
+    </div>
+
+
+    <app-clients [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-clients>
+</app-card>

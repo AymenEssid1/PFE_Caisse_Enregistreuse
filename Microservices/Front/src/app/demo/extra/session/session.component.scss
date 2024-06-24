@@ -1,0 +1,69 @@
+.session-cards {
+    display: flex;
+    flex-wrap: wrap;
+    //justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .session-card {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);
+    color: rgb(255, 255, 255);
+  
+    h3 {
+      margin-bottom: 10px;
+    }
+  
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
+
+  /* styles.css or the relevant component's CSS file */
+.red-background {
+  background:linear-gradient(-135deg, red 0%, rgb(227, 208, 208) 100%);
+}
+
+  
+
+  .custom-tabs {
+    .tab-list {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-around;
+      padding: 0;
+     
+  
+      li {
+        cursor: pointer;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        width: 50%;
+        text-align: center; // Center the text
+
+  
+        &:hover {
+          background-color: #f0f0f0;
+        }
+  
+        &.active {
+          background-color: #fff;
+          border-bottom: 2px solid blue;
+        }
+      }
+    }
+  
+    .tab-content {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 90vh ;
+     
+    }
+  }
+  

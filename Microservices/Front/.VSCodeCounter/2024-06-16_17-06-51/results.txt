@@ -1,0 +1,37 @@
+Date : 2024-06-16 17:06:51
+Directory : c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos
+Total : 9 files,  1252 codes, 193 comments, 404 blanks, all 1849 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |          5 |        750 |         97 |        232 |      1,079 |
+| SCSS       |          2 |        332 |         73 |        144 |        549 |
+| HTML       |          2 |        170 |         23 |         28 |        221 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                            |          9 |      1,252 |        193 |        404 |      1,849 |
+| . (Files)                                                                                                                    |          5 |      1,100 |        193 |        375 |      1,668 |
+| open-orders                                                                                                                  |          4 |        152 |          0 |         29 |        181 |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                     | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\itemService.ts                            | TypeScript |         58 |          3 |         26 |         87 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.html    | HTML       |         20 |          0 |          1 |         21 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.scss    | SCSS       |         54 |          0 |         11 |         65 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.spec.ts | TypeScript |         18 |          0 |          6 |         24 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.ts      | TypeScript |         60 |          0 |         11 |         71 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.html                        | HTML       |        150 |         23 |         27 |        200 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.scss                        | SCSS       |        278 |         73 |        133 |        484 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.spec.ts                     | TypeScript |         18 |          0 |          6 |         24 |
+| c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.ts                          | TypeScript |        596 |         94 |        183 |        873 |
+| Total                                                                                                                        |            |      1,252 |        193 |        404 |      1,849 |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

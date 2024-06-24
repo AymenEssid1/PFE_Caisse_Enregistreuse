@@ -1,0 +1,16 @@
+<div>
+  <a [routerLink]="['/dashboard']" class="b-brand">
+    <div class="b-bg">
+      <mat-icon> attach_money</mat-icon>
+    </div>
+    <span class="b-title">Caisse +</span>
+  </a>
+  <a
+    href="javascript:"
+    class="mobile-menu"
+    [ngClass]="{ on: navCollapsed }"
+    id="mobile-collapse"
+    (click)="navCollapse()"
+    ><span></span
+  ></a>
+</div>

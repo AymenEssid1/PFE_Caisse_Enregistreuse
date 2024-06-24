@@ -1,0 +1,190 @@
+
+.pos-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 5px ;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  
+  .pos-button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+  }
+.payment-container {
+    min-height: 76vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+
+    .total {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .fidelity-points {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    
+      
+
+    .fidelity-button,
+    .user-button
+     {
+        background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .fidelity-button:hover,
+    .user-button:hover {
+        background: linear-gradient(-135deg, #1dc4e9 0%, #1de9b6 100%);
+    }
+
+    .receipt {
+        padding-top:15px ;
+
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .big-receipt {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+
+    }
+
+    .client-info {
+
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-details {
+        margin: 15px ;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        min-height: 300px;
+        max-height: 300px;
+        overflow-y: auto;
+
+    }
+    .item{
+
+        min-width: 30%;
+        display: flex;
+        //justify-content: space-between;
+        gap: 50%;
+        min-height: 30px;
+        border-top: hidden;
+        border-bottom: hidden;
+        border-left: hidden;
+        border-right: hidden;
+        
+    }
+    .quant-div{
+
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        max-width: 10%;
+    }
+
+    .item-name {
+        font-weight: bold;
+        min-width: 40%;
+        text-align: left;
+    }
+
+    .item-quantity {
+        font-weight: bold;
+    }
+
+
+
+    .total-div {
+        margin: 15px;
+       text-align: left;
+       border-top: 2px;
+       border-style: solid;
+       border-bottom: hidden;
+       border-left: hidden;
+       border-right: hidden;
+       padding-top: 20px;
+    }
+
+    .right-div {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        /* Adjust as needed */
+        justify-content: center;
+        padding-left: 20px;
+        gap: 10px;
+        /* Center vertically */
+
+
+
+    }
+
+    .pay-button {
+
+        background: #1de9b6;
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        border: 2px;
+        border-radius: 5px;
+        font-size: 15px;
+        margin: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        height: 80px;
+
+
+    }
+
+}
+
+
+
+.swal-custom-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+#confirm-button,
+#deny-button {
+    width: 100%;
+}
+
+#cancel-button {
+    margin-top: 10px;
+    width: 100%;
+}

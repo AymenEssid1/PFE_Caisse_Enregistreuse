@@ -1,0 +1,16 @@
+<div class="modal" [class.show]="isOpen">
+    <div class="modal-content">
+      <span class="close" (click)="close()">&times;</span>
+      <h2>Client</h2>
+  
+      <div class="input-container">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Email ou Téléphone">
+        <button (click)="searchClientByEmailOrPhoneNumber(searchQuery)">Chercher</button>
+        
+      </div>
+      
+      <button class="add-user-button" (click)="addUser()">Ajouter un client</button>
+
+    </div>
+  </div>
+  

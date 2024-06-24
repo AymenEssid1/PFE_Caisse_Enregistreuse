@@ -1,0 +1,13 @@
+"filename", "language", "TypeScript", "SCSS", "HTML", "comment", "blank", "total"
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\establishments\Service\EstablishmentService.ts", "TypeScript", 3, 0, 0, 0, 1, 4
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\payment\clients\clients.component.ts", "TypeScript", 5, 0, 0, 0, 1, 6
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\payment\payment.component.ts", "TypeScript", 11, 0, 0, 18, 7, 36
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.html", "HTML", 0, 0, 7, 0, -1, 6
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.scss", "SCSS", 0, 7, 0, 0, 4, 11
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\open-orders\open-orders.component.ts", "TypeScript", 20, 0, 0, 0, -1, 19
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.scss", "SCSS", 0, 0, 0, -1, 1, 0
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\pos\pos.component.ts", "TypeScript", 10, 0, 0, 0, 3, 13
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\session\SessionSelectionService.ts", "TypeScript", 0, 0, 0, 0, 1, 1
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\demo\extra\session\session.component.ts", "TypeScript", 24, 0, 0, 1, 0, 25
+"c:\Users\aymen\Documents\PFE\PFE_Caisse_Enregistreuse\Front\src\app\theme\layout\admin\navigation\navigation.ts", "TypeScript", -8, 0, 0, 0, 1, -7
+"Total", "-", 65, 7, 7, 18, 17, 114

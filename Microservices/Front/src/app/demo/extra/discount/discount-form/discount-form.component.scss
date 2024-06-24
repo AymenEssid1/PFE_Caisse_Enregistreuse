@@ -1,0 +1,80 @@
+.table-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-right: 8px; /* Add space between tables */
+  }
+  
+  
+  
+  .tables-container {
+    max-height: 10%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+  }
+  
+  .table-container {
+    flex: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px; /* Add space between tables */
+  }
+  
+  .table-container:nth-child(odd) {
+    margin-right: 8px; /* Add space between tables */
+  }
+
+  .table-container::-webkit-scrollbar {
+    width: 5px; /* Adjust scrollbar width */
+  }
+
+
+  /* Customize scrollbar thumb */
+  .table-container::-webkit-scrollbar-thumb {
+    
+    background: linear-gradient(-135deg, #1de9b6 0%, #1dc4e9 100%);;
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+
+  .modern-search-input {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 200%;
+  }
+  
+  .modern-search-input:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  
+ 
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Add a gap between form groups */
+
+  }
+  
+  .form-group {
+    flex: 1 0 48%; /* Two inputs per row */
+    margin-bottom: 1rem; /* Adjust margin as needed */
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Adjust form-control styles as needed */
+  .form-control {
+    width: 100%;
+  }
+  

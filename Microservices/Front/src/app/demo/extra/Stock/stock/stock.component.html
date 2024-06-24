@@ -1,0 +1,52 @@
+
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Produit de stock">
+        
+
+        <button type="button" class="btn btn-success" (click)="openAddStock(selectedEstablishment.id)">
+          <i class="fa-solid fa-plus" style="color: #ffffff;"></i>Ajouter
+        </button>
+          <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;" id="selectestab" *ngIf="accessVar === 'admin'">
+            <button class="btn btn-outline-primary" ngbDropdownToggle type="button">
+              Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
+            </button>
+            <div class="dropdown-menu-container" style="max-height: 150px; overflow-y: auto;width:100%;" ngbDropdownMenu>
+              <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:" (click)="fetchStockProducts(establishment.id)">
+                {{ establishment.name }}
+              </a>
+            </div>
+          </div>
+
+          
+          <div class="d-flex justify-content-center">
+            <table class="table table-responsive bold-center"> <!-- Apply the .bold-center style here -->
+              <thead>
+                <tr>
+                  <th class="bold-center" style="color: rgb(3, 115, 135);">Réference</th> <!-- Add the .bold-center class here -->
+                  <th class="bold-center"style="color: rgb(3, 115, 135);">Intitulé</th> <!-- Add the .bold-center class here -->
+                  <th class="bold-center"style="color: rgb(3, 115, 135);">Quantité</th> <!-- Add the .bold-center class here -->
+                  <th class="bold-center"style="color: rgb(3, 115, 135);">Actions</th> <!-- Add the .bold-center class here -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let stock of stockProducts">
+                  <td class="bold-center">{{ stock.refstock }}</td> <!-- Add the .bold-center class here -->
+                  <td class="bold-center">{{ stock.name }}</td> <!-- Add the .bold-center class here -->
+                  <td class="bold-center">{{ stock.quantity }} {{ stock.unit }}</td> 
+                  <td>
+                    <button (click)="onDelete(stock.id,selectedEstablishment.id)" type="button" class="btn btn-icon btn-outline-danger">
+                      <i class="feather icon-trash"></i>
+                    </button>
+                    <button (click)="onEdit(selectedEstablishment.id,stock.id)" type="button" class="btn btn-icon btn-outline-success">
+                      <i class="feather icon-edit"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+      </app-card>
+    </div>
+  </div>

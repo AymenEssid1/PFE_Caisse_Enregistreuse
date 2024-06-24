@@ -1,0 +1,60 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: notification
+  datasource:
+    password: password
+    url: jdbc:mysql://mysql4:3306/NotifDB
+    username: aymen
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${keycloak.domain}/realms/${keycloak.realm}
+
+
+  kafka:
+    acks: -1
+    bootstrap-servers: kafka:9092
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      auto-offset-reset: earliest
+      bootstrap-servers: kafka:9092
+      group-id: com.PFE
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: com.PFE
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+
+keycloak:
+
+  realm: PFE
+  domain: keycloak:8080
+  adminClientId: admin-cli
+  #adminClientSecret: dUQPvo7bfrcVpRd3b3QHt1u0YH7szUdl
+  adminClientSecret: joKgYKLaCtyZIa6TTrDUgHmUDhquN0g2
+  client: pfeclient
+  use-resource-role-mappings: false
+  urls:
+    auth: http://${keycloak.domain}
+jwt:
+  auth:
+    converter:
+      resource-id: pfeclient

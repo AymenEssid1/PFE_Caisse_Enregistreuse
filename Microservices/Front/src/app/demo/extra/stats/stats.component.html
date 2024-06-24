@@ -1,0 +1,352 @@
+<div style="display: flex; gap:5% ;flex-direction:column ;padding:10px ;">
+  <div
+    style="display: flex; flex-direction: column; gap: 1%; background-color: rgb(252, 252, 252); max-width: 99%;max-height:32%; margin-bottom: 5px; padding-top: 2%; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab"
+      style="max-width: 20%;padding-left:2%">
+      <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+        {{ selectedEstablishment2 ? selectedEstablishment2.name : 'Tous les points de vente' }}
+      </button>
+      <div class="dropdown-menu-container" ngbDropdownMenu>
+        <a class="dropdown-item" href="javascript:" (click)="selectEstablishment3()">
+          Tous les points de vente
+        </a>
+        <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:"
+          (click)="selectEstablishment2(establishment,establishment.id)">
+          {{ establishment.name }}
+        </a>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction:row;gap:1%; padding-left:2%">
+      <div class="{{ sale.design }} col-xl-4" *ngFor="let sale of percentageChangeDataArray"
+        style="min-width:32%;max-width:32%">
+        <app-card [hidHeader]="true">
+          <h6 class="mb-4">{{ sale.title }}</h6>
+          <div class="row d-flex align-items-center">
+            <div class="col-9">
+              <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                <i class="feather {{ sale.icon }} f-30 m-r-10"></i>{{ sale.amount }} Dinars
+              </h3>
+            </div>
+            <div class="col-3 text-end">
+              <p class="m-b-0">
+
+                {{ sale.percentage }}
+              </p>
+            </div>
+          </div>
+
+        </app-card>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap:1% ; max-height:32%">
+
+    <div class="card2">
+      <div class="card-header bg-primary text-white">
+        <h4 style="color: aliceblue;">Rapports de ventes</h4>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <!-- Establishment Selection Dropdown -->
+          <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab">
+            <button class="btn btn-outline-primary" ngbDropdownToggle type="button">
+              {{ selectedEstablishment ? selectedEstablishment.name : 'Établissement' }}
+            </button>
+            <div class="dropdown-menu-container" ngbDropdownMenu>
+              <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:"
+                (click)="selectEstablishment(establishment)">
+                {{ establishment.name }}
+              </a>
+            </div>
+          </div>
+
+          <!-- Report Type Selection Dropdown -->
+          <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectReportType">
+            <button class="btn btn-outline-primary" ngbDropdownToggle type="button">
+              {{ selectedReportType ? selectedReportType : 'Type de Rapport' }}
+            </button>
+            <div class="dropdown-menu-container" ngbDropdownMenu>
+              <a *ngFor="let type of reportTypes" class="dropdown-item" href="javascript:"
+                (click)="selectReportType(type)">
+                {{ type }}
+              </a>
+            </div>
+          </div>
+
+          <button (click)="deleteAllSessionPDFs()" class="btn btn-outline-danger mb-2">Tout Supprimer</button>
+
+          <!-- Date Picker for Quotidien Reports -->
+          <div *ngIf="selectedReportType === 'quotidien'" class="mb-3 d-flex align-items-center">
+            <label for="datePicker" class="form-label me-2">Sélectionner Date:</label>
+            <input id="datePicker" class="form-control w-auto" type="date" [(ngModel)]="selectedDate"
+              (change)="filterSessionPDFs()" />
+          </div>
+
+          <!-- Session PDFs Table -->
+
+
+          <table class="table2">
+            <thead>
+              <tr>
+                <th>Rapport</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pdf of filteredSessionPDFs">
+                <td>{{ pdf.name }} : {{ getEstablishmentName(pdf.name) }}</td>
+                <td>
+                  <button (click)="deletePDF(pdf.id)" type="button" class="btn btn-icon btn-outline-danger">
+                    <i class="feather icon-trash"></i>
+                  </button>
+                  <button (click)="downloadPDF(pdf.id)" type="button" class="btn btn-icon btn-outline-primary">
+                    <i class="feather icon-download"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="card2">
+      <div class="card-header bg-primary text-white">
+        <h4 style="color:aliceblue">Analyse des Ventes Trimestrielles par Établissement</h4>
+      </div>
+      <div class="card-body">
+        <!-- Future Content Goes Here -->
+
+        <div class="container">
+          <div class="form-group">
+            <label for="yearSelect">Select Year:</label>
+            <select class="form-control" id="yearSelect" [(ngModel)]="selectedYear" (change)="onYearChange()">
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+          </div>
+
+          <apx-chart [series]="chartData.series" [chart]="chartData.chart" [fill]="chartData.fill"
+            [stroke]="chartData.stroke" [xaxis]="chartData.xaxis" [tooltip]="chartData.tooltip"></apx-chart>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div style="display: flex;flex-direction:column; gap:1% ;max-height:32%;max-width: 99%">
+
+    <div class="card2" >
+      <div class="card-header">
+        <h4 style="color: aliceblue;">Popularité des produits</h4>
+      </div>
+
+      <div class="card-body" >
+
+
+        
+          <div>
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab12"
+              style="padding-left:2%">
+              <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+                {{ selectedYear ? selectedYear : 'Year' }}
+              </button>
+              <div class="dropdown-menu-container" ngbDropdownMenu>
+                <a *ngFor="let year of years" class="dropdown-item" href="javascript:" (click)="selectYear2(year)">
+                  {{ year }}
+                </a>
+              </div>
+            </div>
+
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab13"
+              style="padding-left:2%;margin-right:1px">
+              <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+                {{ selectedMonth !== -1 ? monthNames[selectedMonth ] : 'Toute l\'année' }}
+              </button>
+              <div class="dropdown-menu-container" ngbDropdownMenu>
+                <a class="dropdown-item" href="javascript:" (click)="selectMonth(-1)">
+                  Toute l'année
+                </a>
+                <a *ngFor="let month of months" class="dropdown-item" href="javascript:" (click)="selectMonth(month)">
+                  {{ monthNames[month] }}
+                </a>
+
+              </div>
+            </div>
+
+
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab14"
+              style="padding-left:2%;margin-left:1px">
+              <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+                {{ selectedEstablishment3.name }}
+              </button>
+              <div class="dropdown-menu-container" ngbDropdownMenu>
+                <a class="dropdown-item" href="javascript:" (click)="selectestabtop5(selectedEstablishment3)">
+                  Tous les points de vente
+                </a>
+                <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:"
+                  (click)="selectestabtop5(establishment)">
+                  {{ establishment.name }}
+                </a>
+              </div>
+            </div>
+            
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <h5 class="bg-lightgray text-darkgray p-2">Top 5 Combos</h5>
+                  <div *ngFor="let combo of top5Combos"
+                    class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                    <span><i class="fas fa-star text-c-yellow"></i> {{ combo.name }}</span>
+                    <span>{{ combo.quantity }} ventes</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="bg-lightgray text-darkgray p-2">Combos les moins vendus</h5>
+                  <div *ngFor="let combo of bottom5Combos"
+                    class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                    <span><i class="fas fa-thumbs-down text-danger"></i> {{ combo.name }}</span>
+                    <span>{{ combo.quantity }} ventes</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <h5 class="bg-lightgray text-darkgray p-2">Top 5 Produits Vendus</h5>
+                  <div *ngFor="let product of top5SoldProducts"
+                    class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                    <span><i class="fas fa-star text-c-yellow"></i> {{ product.name }}</span>
+                    <span>{{ product.quantity }} ventes</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="bg-lightgray text-darkgray p-2">Produits les moins vendus</h5>
+                  <div *ngFor="let product of bottom5SoldProducts"
+                    class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                    <span><i class="fas fa-thumbs-down text-danger"></i> {{ product.name }}</span>
+                    <span>{{ product.quantity }} ventes</span>
+                  </div>
+                </div>
+              </div>
+            
+
+
+          </div>
+
+
+
+
+
+        
+        
+
+      </div>
+
+
+    </div>
+
+
+
+      <div class="card2" >
+        <div class="card-header bg-primary text-white">
+          <h4 style="color: aliceblue;">Redndement des caissiers</h4>
+        </div>
+        <div class="card-body">
+
+          <div>
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab12"
+              style="padding-left:2%">
+              <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+                {{ selectedYear3 ? selectedYear3 : 'Year' }}
+              </button>
+              <div class="dropdown-menu-container" ngbDropdownMenu>
+                <a *ngFor="let year of years" class="dropdown-item" href="javascript:" (click)="selectYear3(year)">
+                  {{ year }}
+                </a>
+              </div>
+            </div>
+
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab13"
+              style="padding-left:2%;margin-right:1px">
+              <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+                {{ selectedMonth3 !== -1 ? monthNames[selectedMonth3 ] : 'Toute l\'année' }}
+              </button>
+              <div class="dropdown-menu-container" ngbDropdownMenu>
+                <a class="dropdown-item" href="javascript:" (click)="selectMonth(-1)">
+                  Toute l'année
+                </a>
+                <a *ngFor="let month of months" class="dropdown-item" href="javascript:" (click)="selectMonth3(month)">
+                  {{ monthNames[month] }}
+                </a>
+
+              </div>
+            </div>
+
+
+            <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" id="selectestab14"
+              style="padding-left:2%;margin-left:1px">
+              <button class="dropdown-toggle btn btn-success" ngbDropdownToggle type="button">
+                {{ selectedEstablishment4.name }}
+              </button>
+              <div class="dropdown-menu-container" ngbDropdownMenu>
+
+                <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:"
+                  (click)="selectestabcaissier(establishment)">
+                  {{ establishment.name }}
+                </a>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div *ngIf="cashiersWithMinusSessions">
+
+            <div style="max-width: 80%;">
+
+
+
+              <ul class="list-group">
+                <li *ngFor="let cashier of cashiersWithMinusSessions" class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span>{{ cashier[0] }}</span>
+                    <span class="badge bg-danger">{{ cashier[1] }} erreurs de calcul</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+
+
+          </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+  </div>
+
+  
+
+
+
+
+
+</div>

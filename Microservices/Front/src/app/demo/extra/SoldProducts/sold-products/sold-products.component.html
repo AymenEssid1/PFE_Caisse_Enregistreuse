@@ -1,0 +1,106 @@
+<app-card cardTitle="Produits Vendus">
+  <div class="custom-card">
+    
+
+    <button type="button" class="btn btn-success"  (click)="openAddSold(selectedEstablishment.id)">
+      <i class="fa-solid fa-plus" style="color: #ffffff;"></i>Ajouter
+    </button>
+    <div class="btn-group mb-2 me-2" ngbDropdown [placement]="'bottom-left'" style="width: 30%;" id="selectestab2" >
+      <button class="btn btn-outline-primary" ngbDropdownToggle type="button">
+        Point de Vente - {{ selectedEstablishment ? selectedEstablishment.name : 'Loading...' }}
+      </button>
+      <div class="dropdown-menu-container" style="max-height: 150px; overflow-y: auto;width:100%;" ngbDropdownMenu>
+        <a *ngFor="let establishment of establishments" class="dropdown-item" href="javascript:" (click)="fetchSoldProducts(establishment.id)">
+          {{ establishment.name }}
+        </a>
+      </div>
+    </div>
+    
+
+    <div class="d-flex align-items-center mb-3" >
+      <input class="form-control me-2" type="text" placeholder="Rechercher" [(ngModel)]="searchText"
+        (input)="searchByName()" >
+        <nav aria-label="Page navigation example" style="margin-left: 45%;">
+          <ul class="pagination mb-0">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" href="javascript:" (click)="previousPage()">Précedent</a>
+            </li>
+            <li class="page-item" *ngFor="let page of totalPagesArray" [class.active]="currentPage === page"
+              [ngClass]="{ 'custom-active': currentPage === page }">
+              <a class="page-link" href="javascript:" (click)="goToPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" href="javascript:" (click)="nextPage()">Suivant</a>
+            </li>
+          </ul>
+        </nav>
+    </div>
+
+
+    
+
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="bold-center" style="color: rgb(3, 115, 135);">Reférence</th>
+          <th class="bold-center" style="color: rgb(3, 115, 135);">Nom du produit</th>
+          <th class="bold-center" style="color: rgb(3, 115, 135);">Prix</th>
+          <th class="bold-center" style="color: rgb(3, 115, 135);">Categoriey</th>
+          <th class="center" style="color: rgb(3, 115, 135);">Stock associé </th>
+          <th class="bold-center" style="color: rgb(3, 115, 135);"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let soldProduct of  currentSoldProducts">
+          <td class="text-center">
+            <img [src]="'http://localhost:8085/gateway/STOCK/sold-products/image/' + soldProduct.id" alt="no image" width="100"
+              height="100" class="rounded">
+          </td>
+          <td class="bold-center">{{ soldProduct.ref}}</td>
+          <td class="bold-center">{{ soldProduct.name }}</td>
+          <td class="bold-center">{{ soldProduct.price }} DT</td>
+          <td class="bold-center">{{ soldProduct.category.categoryName }}</td>
+          <td class="center">
+            <ul>
+              <li *ngFor="let stockEquivalent of soldProduct.stockEquivalents">
+                {{ stockEquivalent.quantity }} - {{ stockEquivalent.stockproduct.name }}
+              </li>
+            </ul>
+          </td>
+          <td class="text-center align-middle">
+            <button (click)="onEdit(selectedEstablishment.id,soldProduct.id)" type="button"
+              class="btn btn-icon btn-outline-success">
+              <i class="feather icon-edit"></i>
+            </button>
+            <button (click)="onDelete(soldProduct.id)" type="button" class="btn btn-icon btn-outline-danger">
+              <i class="feather icon-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+  </div>
+  
+  <nav aria-label="Page navigation example" style="margin-left: 76%;">
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="javascript:" (click)="previousPage()">Précedent</a>
+      </li>
+      <li class="page-item" *ngFor="let page of totalPagesArray" [class.active]="currentPage === page"
+        [ngClass]="{ 'custom-active': currentPage === page }">
+        <a class="page-link" href="javascript:" (click)="goToPage(page)">{{ page }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" href="javascript:" (click)="nextPage()">Suivant</a>
+      </li>
+    </ul>
+  </nav>
+</app-card>
