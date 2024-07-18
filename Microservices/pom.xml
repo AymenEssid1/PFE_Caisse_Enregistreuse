@@ -29,6 +29,12 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<spring.boot.maven.plugin.version>3.2.2</spring.boot.maven.plugin.version>
 		<spring.boot.dependencies.version>3.2.2</spring.boot.dependencies.version>
+		<sonar.projectKey>PFE</sonar.projectKey>
+		<sonar.projectName>PFE</sonar.projectName>
+		<sonar.projectVersion>1.0</sonar.projectVersion>
+		<sonar.sources>src/main/java</sonar.sources>
+		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
 	</properties>
 
 	<dependencyManagement>
