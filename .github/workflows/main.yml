@@ -1,0 +1,80 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push eureka-server
+      uses: docker/build-push-action@v2
+      with:
+        context: ./eureka-server
+        push: true
+        tags: your-dockerhub-username/eureka-server:latest
+
+    - name: Build and push api-gateway
+      uses: docker/build-push-action@v2
+      with:
+        context: ./API-Gateway
+        push: true
+        tags: your-dockerhub-username/api-gateway:latest
+
+    - name: Build and push stock-service
+      uses: docker/build-push-action@v2
+      with:
+        context: ./StockService
+        push: true
+        tags: your-dockerhub-username/stock-service:latest
+
+    - name: Build and push order-service
+      uses: docker/build-push-action@v2
+      with:
+        context: ./OrderService
+        push: true
+        tags: your-dockerhub-username/order-service:latest
+
+    - name: Build and push payment-service
+      uses: docker/build-push-action@v2
+      with:
+        context: ./PaymentService
+        push: true
+        tags: your-dockerhub-username/payment-service:latest
+
+    - name: Build and push notification-service
+      uses: docker/build-push-action@v2
+      with:
+        context: ./NotificationService
+        push: true
+        tags: your-dockerhub-username/notification-service:latest
+
+    - name: Build and push angular-frontend
+      uses: docker/build-push-action@v2
+      with:
+        context: ./Front
+        push: true
+        tags: your-dockerhub-username/angular-frontend:latest
+
+    - name: Deploy with Docker Compose
+      run: |
+        docker-compose pull
+        docker-compose up -d
