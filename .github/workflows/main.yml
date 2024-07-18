@@ -120,3 +120,9 @@ jobs:
         cd Microservices
         docker-compose pull
         docker-compose up -d
+
+    # Additional debug step (optional)
+    - name: Show Docker Compose logs
+      run: |
+        cd Microservices
+        docker-compose logs
