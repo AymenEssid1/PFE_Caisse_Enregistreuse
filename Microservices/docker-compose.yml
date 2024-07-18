@@ -191,7 +191,7 @@ services:
       dockerfile: Dockerfile
     container_name: notification-service
     ports:
-      - "8084:8084"
+      - "8086:8084"
     restart: unless-stopped
     depends_on:
       - mysql4
