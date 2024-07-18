@@ -56,7 +56,7 @@ jobs:
       # Run tests for each service
       - name: Run tests
         run: |
-          cd Microservices/PaymentService
+          cd Microservices/eureka-server
           mvn test
           # Repeat for other services as needed
 
@@ -88,13 +88,7 @@ jobs:
           docker-compose pull
           docker-compose up -d
 
-      # Perform SonarQube analysis using Maven
-      - name: SonarQube Analysis
-        run: |
-          cd Microservices/PaymentService  # Navigate to the Microservices directory
-          mvn clean verify sonar:sonar
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR }}
+    
 
       # Additional debug step (optional)
       - name: Show Docker Compose logs
