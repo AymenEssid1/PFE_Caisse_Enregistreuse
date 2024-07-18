@@ -28,51 +28,51 @@ jobs:
     - name: Build and push eureka-server
       uses: docker/build-push-action@v2
       with:
-        context: ./eureka-server
+        context: ./Microservices/eureka-server
         push: true
-        tags: your-dockerhub-username/eureka-server:latest
+        tags: aymenessid1/eureka-server:latest
 
     - name: Build and push api-gateway
       uses: docker/build-push-action@v2
       with:
-        context: ./API-Gateway
+        context: ./Microservices/API-Gateway
         push: true
-        tags: your-dockerhub-username/api-gateway:latest
+        tags: aymenessid1/api-gateway:latest
 
     - name: Build and push stock-service
       uses: docker/build-push-action@v2
       with:
-        context: ./StockService
+        context: ./Microservices/StockService
         push: true
-        tags: your-dockerhub-username/stock-service:latest
+        tags: aymenessid1/stock-service:latest
 
     - name: Build and push order-service
       uses: docker/build-push-action@v2
       with:
-        context: ./OrderService
+        context: ./Microservices/OrderService
         push: true
-        tags: your-dockerhub-username/order-service:latest
+        tags: aymenessid1/order-service:latest
 
     - name: Build and push payment-service
       uses: docker/build-push-action@v2
       with:
-        context: ./PaymentService
+        context: ./Microservices/PaymentService
         push: true
-        tags: your-dockerhub-username/payment-service:latest
+        tags: aymenessid1/payment-service:latest
 
     - name: Build and push notification-service
       uses: docker/build-push-action@v2
       with:
-        context: ./NotificationService
+        context: ./Microservices/NotificationService
         push: true
-        tags: your-dockerhub-username/notification-service:latest
+        tags: aymenessid1/notification-service:latest
 
     - name: Build and push angular-frontend
       uses: docker/build-push-action@v2
       with:
-        context: ./Front
+        context: ./Microservices/Front
         push: true
-        tags: your-dockerhub-username/angular-frontend:latest
+        tags: aymenessid1/angular-frontend:latest
 
     - name: Deploy with Docker Compose
       run: |
