@@ -39,10 +39,10 @@ public class ClientServiceImpTest {
         // Call service method
         List<Client> result = clientService.getAllClients();
 
-        // Verify result
+        // Verify interactions and result
+        verify(clientRepository).findAll(); // Verify findAll() was called
         assertEquals(2, result.size());
     }
-
 
     @Test
     public void testGetAllClientsByEstablishmentId() {
@@ -56,10 +56,10 @@ public class ClientServiceImpTest {
         // Call service method
         List<Client> result = clientService.getAllClients(establishmentId);
 
-        // Verify result
+        // Verify interactions and result
+        verify(clientRepository).findAllByEstablishmentId(establishmentId); // Verify findAllByEstablishmentId() was called
         assertEquals(2, result.size());
     }
-
 
     @Test
     public void testGetClientById() {
@@ -74,9 +74,8 @@ public class ClientServiceImpTest {
         // Call service method
         Client result = clientService.getClientById(clientId);
 
-        // Verify result
+        // Verify interactions and result
+        verify(clientRepository).findById(clientId); // Verify findById() was called
         assertEquals(clientId, result.getId());
     }
-
-
 }
