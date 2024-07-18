@@ -91,7 +91,7 @@ jobs:
       # Perform SonarQube analysis using Maven
       - name: SonarQube Analysis
         run: |
-          cd Microservices  # Navigate to the Microservices directory
+          cd Microservices/PaymentService  # Navigate to the Microservices directory
           mvn clean verify sonar:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR }}
