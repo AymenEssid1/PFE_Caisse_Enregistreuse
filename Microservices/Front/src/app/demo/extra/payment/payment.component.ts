@@ -217,7 +217,7 @@ fidelityRatio:number;
           const receivedAmount = parseFloat(receivedAmountInput.value);
           if (!isNaN(receivedAmount) && receivedAmount > 0) {
             const change = this.calculateChange(receivedAmount);
-            changeDisplay.innerText = `Changement à rendre: ${change} Dt`;
+            changeDisplay.innerText = `Monnaie à rendre: ${change} Dt`;
           } else {
             changeDisplay.innerText = '';
           }
@@ -227,7 +227,7 @@ fidelityRatio:number;
       if (result.isConfirmed) {
         const receivedAmount = result.value;
         const change = this.calculateChange(receivedAmount);
-        console.log(`Montant reçu: ${receivedAmount}, Changement: ${change}`);
+        console.log(`Montant reçu: ${receivedAmount}, Monnaie: ${change}`);
          // Call your payment processing function here
          this.payByCash();
       }

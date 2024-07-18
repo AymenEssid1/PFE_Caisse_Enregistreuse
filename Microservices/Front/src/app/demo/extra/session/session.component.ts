@@ -86,7 +86,7 @@ export class SessionComponent {
       return;
     }
     Swal.fire({
-      title: 'Créer une session Session',
+      title: 'Créer une session de commandes',
       html:
         
         `<input type="number" id="startMoney" class="swal2-input" placeholder="Fond de caisse">`,
@@ -205,7 +205,7 @@ checkUnpaidOrders(): Promise<boolean> {
       Swal.fire({
         title: 'Fermer la Session',
         html:
-          `<p>Expected Money: ${expectedMoney}</p>` +
+          `<p>Monnaie attendue: ${expectedMoney}</p>` +
           `<input type="number" id="actualMoney" class="swal2-input" placeholder="Actual Money">`,
         focusConfirm: false,
         preConfirm: () => {
@@ -235,10 +235,10 @@ checkUnpaidOrders(): Promise<boolean> {
             Swal.fire({
               title: 'Fermer la Session',
               html:
-                `<p>Somme calculée": ${expectedMoney}</p>` +
+                `<p>Somme calculée: ${expectedMoney}</p>` +
                 `<p>Somme réelle: ${actualMoney}</p>` +
                 `<p>Différence detectée. Veuillez mentionner la cause</p>` +
-                `<textarea id="note" class="swal2-textarea" placeholder="Tapez"></textarea>`,
+                `<textarea id="note" class="swal2-textarea" placeholder="Tapez ici"></textarea>`,
               focusConfirm: false,
               preConfirm: () => {
                 const note = (document.getElementById('note') as HTMLTextAreaElement).value.trim();

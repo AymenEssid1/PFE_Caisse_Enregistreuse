@@ -142,7 +142,7 @@ export class LoginService {
 
 
   adminLogin(data: any): Observable<void> {
-    return this.http.post<any>("http://localhost/keycloak/realms/PFE/protocol/openid-connect/token", data,
+    return this.http.post<any>("http://localhost:8085/keycloak/realms/PFE/protocol/openid-connect/token", data,
       {
         headers: new HttpHeaders()
           .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -205,11 +205,11 @@ export class LoginService {
           finalize(() => {
             this.adminLogout().subscribe(
               () => {
-               // console.log('Logged out from admin account');
+               console.log('Logged out from admin account');
                 
               },
               (logoutError) => {
-              //  console.error('Mini logout failed:', logoutError);
+              console.error('Mini logout failed:', logoutError);
               }
             );
           })
@@ -222,7 +222,7 @@ export class LoginService {
         this.router.navigate(['sign-in']);
       },
       (registrationError) => {
-       // console.error('Registration failed:', registrationError);
+       console.error('Registration failed:', registrationError);
         this.notificationService.showError("","Le nom d'utilisateur ou l'adresse mail existe deja")
 
       }
