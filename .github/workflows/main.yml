@@ -53,6 +53,13 @@ jobs:
         cd Microservices/NotificationService
         mvn clean package -DskipTests
 
+    # Run tests for each service
+    - name: Run tests
+      run: |
+        cd Microservices/eureka-server
+        mvn test
+        # Repeat for other services as needed
+
     # Set up Docker Buildx
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -72,47 +79,7 @@ jobs:
         push: true
         tags: aymenessid1/eureka-server:latest
 
-    - name: Build and push api-gateway
-      uses: docker/build-push-action@v2
-      with:
-        context: ./Microservices/API-Gateway
-        push: true
-        tags: aymenessid1/api-gateway:latest
-
-    - name: Build and push stock-service
-      uses: docker/build-push-action@v2
-      with:
-        context: ./Microservices/StockService
-        push: true
-        tags: aymenessid1/stock-service:latest
-
-    - name: Build and push order-service
-      uses: docker/build-push-action@v2
-      with:
-        context: ./Microservices/OrderService
-        push: true
-        tags: aymenessid1/order-service:latest
-
-    - name: Build and push payment-service
-      uses: docker/build-push-action@v2
-      with:
-        context: ./Microservices/PaymentService
-        push: true
-        tags: aymenessid1/payment-service:latest
-
-    - name: Build and push notification-service
-      uses: docker/build-push-action@v2
-      with:
-        context: ./Microservices/NotificationService
-        push: true
-        tags: aymenessid1/notification-service:latest
-
-    - name: Build and push angular-frontend
-      uses: docker/build-push-action@v2
-      with:
-        context: ./Microservices/Front
-        push: true
-        tags: aymenessid1/angular-frontend:latest
+    # Repeat build and push steps for other services
 
     # Deploy with Docker Compose from Microservices directory
     - name: Deploy with Docker Compose
@@ -126,3 +93,9 @@ jobs:
       run: |
         cd Microservices
         docker-compose logs
+
+    # SonarQube analysis
+    - name: SonarQube Scan
+      run: sonar-scanner
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR }}
