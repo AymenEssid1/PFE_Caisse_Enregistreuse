@@ -90,7 +90,7 @@ jobs:
 
        # Navigate to the Microservices directory
       - name: Navigate to Microservices directory
-        run: cd PFE_Caisse_Enregistreuse/Microservices
+        run: cd Microservices
 
       # Additional debug step (optional)
       - name: Show Docker Compose logs
