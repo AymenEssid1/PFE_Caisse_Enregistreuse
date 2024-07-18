@@ -16,6 +16,48 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    # Build Eureka Server
+    - name: Build eureka-server
+      run: |
+        cd Microservices/eureka-server
+        mvn clean package -DskipTests
+
+    # Build API Gateway
+    - name: Build api-gateway
+      run: |
+        cd Microservices/API-Gateway
+        mvn clean package -DskipTests
+
+    # Build Stock Service
+    - name: Build stock-service
+      run: |
+        cd Microservices/StockService
+        mvn clean package -DskipTests
+
+    # Build Order Service
+    - name: Build order-service
+      run: |
+        cd Microservices/OrderService
+        mvn clean package -DskipTests
+
+    # Build Payment Service
+    - name: Build payment-service
+      run: |
+        cd Microservices/PaymentService
+        mvn clean package -DskipTests
+
+    # Build Notification Service
+    - name: Build notification-service
+      run: |
+        cd Microservices/NotificationService
+        mvn clean package -DskipTests
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
