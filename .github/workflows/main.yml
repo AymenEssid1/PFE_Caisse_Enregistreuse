@@ -94,16 +94,9 @@ jobs:
           cd Microservices
           docker-compose logs
 
-      # Install Sonar Scanner
-      - name: Install Sonar Scanner
-        run: |
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-          unzip sonar-scanner-cli-4.6.2.2472-linux.zip
-          export PATH="$PATH:$(pwd)/sonar-scanner-cli-4.6.2.2472-linux/bin"
-
-      # SonarQube analysis
-      - name: SonarQube Scan
-        run: sonar-scanner
+      # Perform SonarQube analysis using Maven
+      - name: SonarQube Analysis
+        run: mvn clean verify sonar:sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR }}
 
