@@ -88,19 +88,16 @@ jobs:
           docker-compose pull
           docker-compose up -d
 
-       # Navigate to the Microservices directory
-      - name: Navigate to Microservices directory
-        run: cd Microservices
+      # Perform SonarQube analysis using Maven
+      - name: SonarQube Analysis
+        run: |
+          cd Microservices  # Navigate to the Microservices directory
+          mvn clean verify sonar:sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR }}
 
       # Additional debug step (optional)
       - name: Show Docker Compose logs
         run: |
           cd Microservices
           docker-compose logs
-
-      # Perform SonarQube analysis using Maven
-      - name: SonarQube Analysis
-        run: mvn clean verify sonar:sonar
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR }}
-
