@@ -2,6 +2,7 @@ package com.PFE.stock.services.interfaces;
 
 import com.PFE.stock.entities.SoldProduct;
 import com.PFE.stock.entities.StockEquivalent;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public interface SoldProductService {
 
 
     SoldProduct findByRef(String ref,Integer establishmentId);
-
+    Page<SoldProduct> getAllSoldProducts2(Integer establishmentId, int page, int size);
 
 }
 

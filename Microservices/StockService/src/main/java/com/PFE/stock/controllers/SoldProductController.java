@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -136,9 +137,12 @@ public class SoldProductController {
         }
     }
 
-    @GetMapping("/get-all-sold-products/{establishmentId}")
-    public ResponseEntity<List<SoldProduct>> getAllSoldProducts(@PathVariable("establishmentId") Integer establishmentId) {
-        return ResponseEntity.status(HttpStatus.OK).body(soldProductService.getAllSoldProducts(establishmentId));
+    @GetMapping("/establishments/{establishmentId}/sold-products")
+    public Page<SoldProduct> getAllSoldProducts(
+            @PathVariable Integer establishmentId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return soldProductService.getAllSoldProducts2(establishmentId, page, size);
     }
 
 

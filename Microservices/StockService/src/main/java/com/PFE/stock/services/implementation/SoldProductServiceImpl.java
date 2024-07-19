@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -139,6 +143,15 @@ public class SoldProductServiceImpl implements SoldProductService {
         return updatedSoldProductEntity;
     }
 
+    @Override
+    public List<SoldProduct> getAllSoldProducts(Integer establishmentId) {
+        Establishment establishment = establishmentRepository.findById(establishmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Establishment not found"));
+
+        return soldProductRepository.findAllByCategoryEstablishment(establishment);
+    }
+
+
 
 
     @Override
@@ -164,13 +177,7 @@ public class SoldProductServiceImpl implements SoldProductService {
 
 
 
-    @Override
-    public List<SoldProduct> getAllSoldProducts(Integer establishmentId) {
-        Establishment establishment = establishmentRepository.findById(establishmentId)
-                .orElseThrow(() -> new EntityNotFoundException("Establishment not found"));
 
-        return soldProductRepository.findAllByCategoryEstablishment(establishment);
-    }
 
 
     @Autowired
@@ -204,5 +211,13 @@ public class SoldProductServiceImpl implements SoldProductService {
     public SoldProduct findByRef(String ref,Integer establishmentId) {
         Optional<SoldProduct> soldProductOptional = soldProductRepository.findByRefAndCategoryEstablishmentId(ref,establishmentId);
         return soldProductOptional.orElseThrow(()->new EntityNotFoundException());
+    }
+
+    public Page<SoldProduct> getAllSoldProducts2(Integer establishmentId, int page, int size) {
+        Establishment establishment = establishmentRepository.findById(establishmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Establishment not found"));
+
+        Pageable pageable = PageRequest.of(page, size);
+        return soldProductRepository.findAllByCategoryEstablishment(establishment, pageable);
     }
 }

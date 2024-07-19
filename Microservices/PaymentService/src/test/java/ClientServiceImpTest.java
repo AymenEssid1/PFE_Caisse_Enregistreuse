@@ -30,17 +30,17 @@ public class ClientServiceImpTest {
 
     @Test
     public void testGetAllClients() {
-        // Mock data
+
         List<Client> clients = Arrays.asList(new Client(), new Client());
 
-        // Mock repository behavior
+
         when(clientRepository.findAll()).thenReturn(clients);
 
-        // Call service method
+
         List<Client> result = clientService.getAllClients();
 
-        // Verify interactions and result
-        verify(clientRepository).findAll(); // Verify findAll() was called
+
+        verify(clientRepository).findAll();
         assertEquals(2, result.size());
     }
 

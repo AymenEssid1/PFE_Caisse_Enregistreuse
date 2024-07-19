@@ -10,6 +10,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface SoldProductRepository extends JpaRepository<SoldProduct, Integer> {
     Optional<SoldProduct> findByRefAndCategoryEstablishment(String ref, Establishment establishment);
     Optional<SoldProduct> findByNameAndCategoryEstablishment(String name, Establishment establishment);
@@ -28,5 +31,8 @@ public interface SoldProductRepository extends JpaRepository<SoldProduct, Intege
     List<SoldProduct> findByIds(@Param("ids") List<Integer> ids);
 
     List<SoldProduct> findByStockEquivalents_Id(Integer stockEquivalentId);
+
+    Page<SoldProduct> findAllByCategoryEstablishment(Establishment establishment, Pageable pageable);
+
 
 }
